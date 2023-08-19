@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Movie-API</title>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html">
+            <img src="assets/movie-logo.png" alt="logo">
+        </a>
+        <button class="login_btn">Login</button>
+    </nav>
+    <div class="searchbar">
+        <input type="text" placeholder="Search for a specific movie">
+    </div>
+    <div class="search_filters">
+        <div class="search_filter">
+            <label for="genre" class="filter_label">Genre</label>
+            <select class="filter_select" id="genre" name="genre">
+                <option value="all">All Genres</option>
+            </select>
+        </div>
+        <div class="search_filter">
+            <label for="year" class="filter_label">Year</label>
+            <select class="filter_select" id="year" name="year">
+                <option value="all">All Years</option>
+            </select>
+        </div>
+        <div class="search_filter">
+            <label for="director" class="filter_label">Film Director</label>
+            <select class="filter_select" id="director" name="director">
+                <option value="all">All Film Directors</option>
+            </select>
+        </div>
+    </div>
+</body>
+</html>

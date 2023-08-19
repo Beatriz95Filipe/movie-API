@@ -1,0 +1,52 @@
+@import "../parcials/mixins";
+@import "../parcials/colors";
+
+@font-face {
+	font-family: 'Roboto', sans-serif;
+	src: url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+}
+
+
+a {
+	@include fontSize(1);
+	font-family: 'Roboto', sans-serif;
+	text-decoration: none;
+	color: $p-color-black;
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+p {
+	@include fontSize(1);
+	font-family: 'Roboto', sans-serif;
+	color: $p-color-black;
+}
+
+.search_filter {
+    label, select, option {
+        @include fontSize(0.8);
+        font-family: 'Roboto', sans-serif;
+        color: $p-color-black;
+        text-transform: capitalize;
+    }
+}
+
+.searchbar {
+    input {
+        @include fontSize(0.8);
+        font-family: 'Roboto', sans-serif;
+        color: $p-color-black;
+        text-transform: capitalize;
+    }
+}
+
+button.login_btn {
+	@include fontSize(1.2);
+	font-family: 'Roboto', sans-serif;
+	color: $p-color-wine;
+	text-transform: capitalize;
+    &:hover{
+        font-weight: bold;
+    }
+}
