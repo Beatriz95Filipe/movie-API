@@ -1,0 +1,29 @@
+@import "../parcials/colors";
+@import "../parcials/typo";
+@import "../parcials/mixins";
+
+
+.search_filters {
+    background-color: $bg-dark-bege;
+    padding: 20px;
+}
+
+.search_filter {
+    label{
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 4px;
+    }
+	select, option {
+        background-color: $bg-light-bege;
+        border: none;
+        outline: none;
+        width: 100%;
+        padding: 8px;
+    }
+}
+
+.apply_filters {
+    @include flex(center, center);
+    margin-top: 40px;
+}

@@ -9,3 +9,13 @@
         cursor: pointer;
     }
 }
+
+.filter_btn {
+    background-color:$p-color-wine;
+    border: none;
+    padding: 8px;
+    &:hover{
+        cursor: pointer;
+        box-shadow: 0 5px 5px 0px $bg-light-wine;
+    }
+}

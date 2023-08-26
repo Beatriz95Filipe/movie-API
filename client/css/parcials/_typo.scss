@@ -24,7 +24,13 @@ p {
 }
 
 .search_filter {
-    label, select, option {
+    label {
+        @include fontSize(0.9);
+        font-family: 'Roboto', sans-serif;
+        color: $p-color-black;
+        text-transform: uppercase;
+    }
+	select, option {
         @include fontSize(0.8);
         font-family: 'Roboto', sans-serif;
         color: $p-color-black;
@@ -44,9 +50,17 @@ p {
 button.login_btn {
 	@include fontSize(1.2);
 	font-family: 'Roboto', sans-serif;
-	color: $p-color-wine;
+	color: $p-color-black;
 	text-transform: capitalize;
     &:hover{
         font-weight: bold;
+		color: $p-color-wine;
     }
+}
+
+button.filter_btn {
+	@include fontSize(0.8);
+	font-family: 'Roboto', sans-serif;
+	color: $p-color-white;
+	text-transform: uppercase;
 }
