@@ -10,6 +10,10 @@ const MovieSchema = new mongoose.Schema<IMovie>({
     type: Date,
     required: true,
   },
+  filmDirector: {
+    type: [String],
+    required: true,
+  },
   trailerLink: {
     type: String,
     required: true,

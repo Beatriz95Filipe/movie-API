@@ -1,3 +1,5 @@
+import MovieController from "../controllers/MovieController.js";
+
 //get filter options from movies specifics
 function populateFiltersOptions() {
   const genreSelect = document.getElementById("genre");
@@ -49,29 +51,86 @@ function populateFiltersOptions() {
 
 populateFiltersOptions();
 
+
+//search bar
+const createSearchBar = async () => {
+  let movies = await fetch("http://localhost:5775/api/movies");
+  console.log(movies);
+
+  let movieTitle = movies.map((movie) => movie.title.toLowerCase());
+  let movieDirector = movies.map((movie) => movie.filmDirector.toLowerCase());
+
+  let searchMoviesInput = document.getElementById("searchMoviesInput");
+  let searchResultsContainer = document.getElementById("searchResults");
+
+  searchMoviesInput.onkeyup = (searchInput) => {
+      let searchedMovie = searchInput.target.value.toLowerCase();
+      let matchingMovies = [];
+
+      for (let i = 0; i < movies.length; i++) {
+          if (movieTitle[i].includes(searchedMovie) || movieDirector[i].includes(searchedMovie)) {
+            matchingMovies.push(movies[i]);
+          }
+      }
+      displaySearchResults(matchingMovies, searchedMovie);
+  }
+}
+
+const displaySearchResults = (matchingMovies, searchedMovie) => {
+  let searchMoviesInput = document.getElementById("searchMoviesInput");
+
+  let searchResultsContainer = document.getElementById("searchResults");
+  searchResultsContainer.innerHTML = "";
+
+  if (matchingMovies.length === 0) {
+    searchResultsContainer.innerHTML +=
+      `<div class="searchResultItem">
+        <p>It seems we can't find what you are looking for...</p>
+      </div>`;
+  } else if (searchedMovie.length === 0) {
+    searchResultsContainer.innerHTML +=
+      `<div class="searchResultItem"></div>`;
+  } else {
+    matchingMovies.forEach((movie) => {
+      searchResultsContainer.innerHTML +=
+          `<div class="searchResultItem">
+              <p>${movie.title}</p>
+              <img src="${movie.posterUrl}">
+          </div>`;
+      });
+  }
+}
+
+createSearchBar();
+
 //create movie card
 function createMovieCard(movie) {
   return `<div class="col-lg-4 movie_card">
       <div class="card-body">
-        <h5 class="card-title">${movie.name}</h5>
-        <p class="card-text">${movie.brandId.name}, ${movie.typeId.name}</p>
-        <p class="card-text">$${movie.price}</p>
-        <p class="card-text"><small>${movie.description}</small></p>
-        <button class="btn btn-danger delete-btn" data-id="${movie._id}">Delete</button>
+        <h5 class="card-title">${movie.title}</h5>
+        <p class="card-text">${movie.releaseDate}, ${movie.filmDirector}</p>
+        <p class="card-text">${movie.genres}</p>
+        <a class="card-img" href="${movie.trailerLink}">
+            <img src="${movie.posterUrl}" alt="movie-poster">
+        </a>
+        <button class="btn delete-btn" data-id="${movie._id}">Delete</button>
       </div>
   </div>`;
 }
 
+//filter btn
 function handleFilterBtnClick() {
-  const typeId = document.getElementById("type").value;
-  const brandId = document.getElementById("brand").value;
+  const genreId = document.getElementById("genre").value;
+  const yearsId = document.getElementById("year").value;
+  const directorId = document.getElementById("director").value;
 
   const queryParams = new URLSearchParams({
-    typeId,
-    brandId,
+    genreId,
+    yearsId,
+    directorId,
   }).toString();
 
-  const url = `http://localhost:1337/api/devices/?${queryParams}`;
+  const url = `http://localhost:5775/api/movies/?${queryParams}`;
 
   const accessToken = localStorage.getItem("accessToken");
   const headers = new Headers();
@@ -80,42 +139,44 @@ function handleFilterBtnClick() {
   fetch(url, { headers })
     .then((response) => response.json())
     .then((data) => {
-      const productContainer = document.querySelector(".product-list");
-      productContainer.innerHTML = "";
+      const moviesContainer = document.querySelector(".movies_container");
+      moviesContainer.innerHTML = "";
 
-      data.forEach((product) => {
-        const productElement = createProductElement(product);
-        productContainer.insertAdjacentHTML("beforeend", productElement);
+      data.forEach((movie) => {
+        const movieElement = createMovieCard(movie);
+        moviesContainer.insertAdjacentHTML("beforeend", movieElement);
       });
       const deletedBtns = document.querySelectorAll(".delete-btn");
 
       deletedBtns.forEach((deletedBtn) => {
-        deletedBtn.addEventListener("click", handleDeleteProduct);
+        deletedBtn.addEventListener("click", handleDeleteMovie);
       });
     })
     .catch((error) => console.error("Error fetching products:", error));
 }
-function handleDeleteProduct(event) {
-  const productId = event.target.dataset.id;
+
+//delete movie btn
+function handleDeleteMovie(event) {
+  const movieId = event.target.dataset.id;
   const accessToken = localStorage.getItem("accessToken");
 
   const headers = new Headers();
   headers.append("Authorization", `Bearer ${accessToken}`);
 
-  fetch(`http://localhost:1337/api/devices/${productId}`, {
+  fetch(`http://localhost:5775/api/movies/${movieId}`, {
     method: "DELETE",
     headers: headers,
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Error deleting product");
+        throw new Error("Error deleting movie");
       }
       return response.json();
     })
     .then(() => {
       event.target.parentElement.parentElement.parentElement.remove();
     })
-    .catch((error) => console.error("Error delete product:", error));
+    .catch((error) => console.error("Error deleting movie:", error));
 }
 
 handleFilterBtnClick();
@@ -126,7 +187,7 @@ async function login(email, password) {
     // Clear any previous user information from localStorage
     localStorage.removeItem("userName");
     localStorage.removeItem("userEmail");
-    const response = await fetch("http://localhost:1337/auth/login", {
+    const response = await fetch("http://localhost:5775/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

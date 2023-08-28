@@ -6,11 +6,12 @@ import ApiError from "../utils/ApiError.js";
 class MovieController {
     async create(req: Request, res: Response, next: NextFunction) {
         try {
-            const{ title, releaseDate, trailerLink, posterUrl, genres } = req.body;
+            const{ title, releaseDate, filmDirector, trailerLink, posterUrl, genres } = req.body;
 
             const newMovie = {
                 title,
                 releaseDate,
+                filmDirector,
                 trailerLink,
                 posterUrl,
                 genres
