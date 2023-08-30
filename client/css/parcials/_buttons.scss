@@ -8,6 +8,12 @@
     &:hover{
         cursor: pointer;
     }
+
+    &_submit{
+        background-color:$bg-dark-bege;
+        border: none;
+        padding: 16px;
+    }
 }
 
 .filter_btn {

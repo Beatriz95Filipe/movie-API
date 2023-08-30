@@ -56,6 +56,10 @@ button.login_btn {
         font-weight: bold;
 		color: $p-color-wine;
     }
+
+	&_submit{
+        text-transform: uppercase;
+    }
 }
 
 button.filter_btn {

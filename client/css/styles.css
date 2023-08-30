@@ -56,6 +56,9 @@ button.login_btn:hover {
   font-weight: bold;
   color: #973e3e;
 }
+button.login_btn_submit {
+  text-transform: uppercase;
+}
 
 button.filter_btn {
   font-size: 11.2px;
@@ -71,6 +74,11 @@ button.filter_btn {
 }
 .login_btn:hover {
   cursor: pointer;
+}
+.login_btn_submit {
+  background-color: #eeddb4;
+  border: none;
+  padding: 16px;
 }
 
 .filter_btn {
@@ -327,6 +335,9 @@ button.login_btn:hover {
   font-weight: bold;
   color: #973e3e;
 }
+button.login_btn_submit {
+  text-transform: uppercase;
+}
 
 button.filter_btn {
   font-size: 11.2px;
@@ -392,6 +403,102 @@ button.login_btn {
 button.login_btn:hover {
   font-weight: bold;
   color: #973e3e;
+}
+button.login_btn_submit {
+  text-transform: uppercase;
+}
+
+button.filter_btn {
+  font-size: 11.2px;
+  font-family: "Roboto", sans-serif;
+  color: #fffcf6;
+  text-transform: uppercase;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.modal_content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+}
+
+body {
+  background-color: #eeddb4;
+}
+
+body {
+  background-color: #eeddb4;
+}
+
+@font-face {
+  font-family: "Roboto", sans-serif;
+  src: url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+}
+a {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  text-decoration: none;
+  color: #1a1a1a;
+}
+a:hover {
+  cursor: pointer;
+}
+
+p {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+}
+
+.search_filter label {
+  font-size: 12.6px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: uppercase;
+}
+.search_filter select, .search_filter option {
+  font-size: 11.2px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+
+.searchbar input {
+  font-size: 11.2px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+
+button.login_btn {
+  font-size: 16.8px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+button.login_btn:hover {
+  font-weight: bold;
+  color: #973e3e;
+}
+button.login_btn_submit {
+  text-transform: uppercase;
 }
 
 button.filter_btn {
@@ -488,6 +595,9 @@ button.login_btn:hover {
   font-weight: bold;
   color: #973e3e;
 }
+button.login_btn_submit {
+  text-transform: uppercase;
+}
 
 button.filter_btn {
   font-size: 11.2px;
@@ -578,6 +688,9 @@ button.login_btn {
 button.login_btn:hover {
   font-weight: bold;
   color: #973e3e;
+}
+button.login_btn_submit {
+  text-transform: uppercase;
 }
 
 button.filter_btn {

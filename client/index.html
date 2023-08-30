@@ -14,7 +14,17 @@
         <a class="navbar_logo" href="index.html">
             <img src="assets/movie-logo.png" alt="logo">
         </a>
-        <button class="login_btn">Login</button>
+        <button class="login_btn" id="loginBtn">Login</button>
+        <div id="loginModal" class="modal">
+            <div class="modal_content">
+                <span class="close">&times;</span>
+                <h2>Login or Register</h2>
+                <input type="text" placeholder="Name" id="name">
+                <input type="email" placeholder="Email" id="email">
+                <button id="login_btn_submit">Enter your account</button>
+                <p>Don't have an account? <a href="#">Register</a></p>
+            </div>
+        </div>
     </nav>
     <div class="searchbar">
         <input type="text" id="searchMoviesInput" placeholder="Search for a specific movie" name="searchField">

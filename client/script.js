@@ -1,5 +1,3 @@
-import MovieController from "../controllers/MovieController.js";
-
 //get filter options from movies specifics
 function populateFiltersOptions() {
   const genreSelect = document.getElementById("genre");
@@ -181,6 +179,21 @@ function handleDeleteMovie(event) {
 
 handleFilterBtnClick();
 
+// //login & register modal
+// var modal = document.getElementById("loginModal");
+// var loginBtn = document.getElementById("loginBtn");
+// var closeBtn = document.getElementsByClassName("close")[0];
+
+// loginBtn.onclick = () => {
+//   modal.style.display = "block";
+// }
+
+// window.onclick = function(event) {
+//   if (event.target == modal) {
+//     modal.style.display = "none";
+//   }
+// }
+
 // Login function
 async function login(email, password) {
   try {
@@ -198,8 +211,7 @@ async function login(email, password) {
     if (!response.ok) {
       alert("Login failed"); // Show alert for failed login
       const loginModal = document.getElementById("loginModal");
-      var modal = bootstrap.Modal.getInstance(loginModal);
-      modal.hide();
+      loginModal.hide();
     } else {
       const data = await response.json();
 
@@ -215,11 +227,10 @@ async function login(email, password) {
 
         // Update the user profile in the navigation bar
         handleLoginSuccess();
-        // Hide the login modal
 
+        // Hide the login modal
         const loginModal = document.getElementById("loginModal");
-        var modal = bootstrap.Modal.getInstance(loginModal);
-        modal.hide();
+        loginModal.hide();
       }
     }
   } catch (error) {
