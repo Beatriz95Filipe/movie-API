@@ -6,6 +6,7 @@ import fileUpload from "express-fileupload";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import errorMiddleware from "./middlewares/ErrorMiddleware.js";
+import authRouter from "./routes/authRouter.js";
 
 // App creation
 const app = express();
@@ -31,6 +32,9 @@ app.use(fileUpload());
 
 // Import movie routes
 app.use('/api', movieRouter);
+
+// Import auth routes
+app.use('/auth', authRouter);
 
 // The data format
 app.use(express.json());
