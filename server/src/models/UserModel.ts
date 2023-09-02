@@ -1,19 +1,6 @@
 import mongoose from "mongoose";
-import bcrypt from 'bcryptjs'
-
-const RoleSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    unique: true,
-    required: true,
-    uppercase: true,
-    trim: true
-  }
-})
-
-export interface IRole extends mongoose.Document {
-  name: string
-}
+import bcrypt from "bcryptjs";
+import { IRole } from "./RoleModel.js";
 
 export interface IUser extends mongoose.Document {
   name: string,
@@ -66,7 +53,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 
-const RoleModel = mongoose.model<IRole>("Role", RoleSchema);
+// const RoleModel = mongoose.model<IRole>("Role", RoleSchema);
 const UserModel = mongoose.model<IUser>("User", UserSchema);
 
-export { RoleModel, UserModel };
+export { UserModel };

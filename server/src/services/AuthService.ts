@@ -1,4 +1,5 @@
-import { IUser, RoleModel, UserModel } from "../models/userModel.js";
+import { IUser, UserModel } from "./../models/UserModel.js";
+import { IRole, RoleModel } from "./../models/RoleModel.js";
 
 class AuthService {
   async isAdmin(user: IUser) {

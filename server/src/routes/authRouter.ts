@@ -1,42 +1,50 @@
 import express from "express";
 import AuthController from "./../controllers/AuthController.js";
 import authMiddleware from "./../middlewares/AuthMiddleware.js";
-const router = express.Router();
-import { check } from 'express-validator'
+import { check } from "express-validator";
 
+//CRUD
+const router = express.Router();
+
+//POST ROLES
 router.post(
-  '/roles',
+  "/roles",
   [
     check("name", "Name can't be empty").notEmpty(),
   ],
   AuthController.createRole
 );
-router.delete('/roles/:id', AuthController.deleteRole);
+
+//DELETE ROLES
+router.delete("/roles/:id", AuthController.deleteRole);
 
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
+//POST REGISTER
 router.post(
   "/register",
   [
     check("name", "Name can't be empty").notEmpty(),
     check("email", "Email can't be empty").notEmpty(),
     check("email", "Invalid email").isEmail(),
-    check("password").notEmpty().withMessage('Password is required')
-    .matches(passwordRegex).withMessage('Password must be safe and secure'),
+    check("password").notEmpty().withMessage("Password is required")
+    .matches(passwordRegex).withMessage("Password must be safe and secure"),
   ],
   AuthController.register
 );
 
+//POST LOGIN
 router.post(
   '/login',
   [
     check("email", "Email can't be empty").notEmpty(),
     check("email", "Invalid email").isEmail(),
-    check("password", "Password can't be empty").notEmpty(),
+    check("password", "Password is required").notEmpty(),
   ],
   AuthController.login
 );
 
+//GET
 router.get(
   '/',
   authMiddleware,

@@ -1,5 +1,6 @@
 import jwt, { Secret } from "jsonwebtoken";
-import { IRole, IUser } from './../models/userModel.js'
+import { IUser } from "./../models/UserModel.js";
+import { IRole } from "./../models/RoleModel.js";
 import dotenv from 'dotenv'
 
 dotenv.config();

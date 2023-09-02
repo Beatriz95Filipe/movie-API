@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import AuthService from "../services/AuthService.js";
-import { IRole, RoleModel, UserModel } from "../models/userModel.js";
+import { IUser, UserModel } from "./../models/UserModel.js";
+import { IRole, RoleModel } from "./../models/RoleModel.js";
 import TokenService from "../services/TokenService.js";
 import bcrypt from 'bcryptjs';
 import { validationResult } from "express-validator";
