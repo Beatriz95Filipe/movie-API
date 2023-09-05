@@ -47,7 +47,7 @@ class MovieService {
                 currentPage: page,
                 totalPages: Math.ceil(result.totalMovies / limit)
             };
-
+            return responseData;
         } catch (error) {
             throw error;
         }

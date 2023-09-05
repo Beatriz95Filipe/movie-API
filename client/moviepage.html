@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Movie</title>
+</head>
+<body>
+    <section class="container movie_card">
+        <div class="col-lg-4 movie_trailer">
+            <video class="movie_video" muted autoplay loop>
+                <source src="./assets/movie_trailer.png">
+            </video>
+        </div>
+        <div class="col-lg-8 movie_info">
+            <h2>movie title</h2>
+            <h3>year, fil director</h3>
+            <p>genres</p>
+        </div>
+    </section>
+    <section class="container movie_rating">
+        <img src="./assets/movie-rating.png" alt="rating">
+        <form id="rating" class="rating" action="">
+            <input type="text" placeholder="Give us your review about this movie" name="commentField">
+            <button class="rate_btn" id="rateBtn" type="submit">Send review</button>
+        </form>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>

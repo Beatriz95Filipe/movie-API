@@ -1,10 +1,16 @@
 import IMovie from "../interfaces/MovieInterface.js";
 import MovieModel from "../models/MovieModel.js";
+import ApiError from "../utils/ApiError.js";
 
 class MovieRepository {
     async createMovie(movieData: IMovie) {
         try {
             const newMovie = new MovieModel(movieData);
+            // const savedMovie = await newMovie.save();
+            // if(!savedMovie) {
+            //     throw ApiError.InternalServerError("Error while creating movie.");
+            // }
+            // return savedMovie;
             return await newMovie.save();
         } catch (error) {
             throw error;

@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs'
 
+export interface IRole extends mongoose.Document {
+  name: string
+}
+
 const RoleSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -10,10 +14,6 @@ const RoleSchema = new mongoose.Schema({
     trim: true
   }
 })
-
-export interface IRole extends mongoose.Document {
-  name: string
-}
 
 const RoleModel = mongoose.model<IRole>("Role", RoleSchema);
 

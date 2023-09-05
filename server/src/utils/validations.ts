@@ -1,33 +1,36 @@
-// import { check } from 'express-validator';
+import { check } from 'express-validator';
 
-// export const deviceValidation = [
-//   check('name', 'Name is required').notEmpty(),
-//   check('description', 'Description must be a string').optional().isString(),
-//   check('price', 'Price must be a valid number').isNumeric(),
-//   check('brandId', 'Brand ID is required').notEmpty(),
-//   check('typeId', 'Type ID is required').notEmpty(),
+export const movieValidation = [
+  check('title', 'Title is required').notEmpty(),
+  check('releaseDate', 'Release date must be a valid date').isDate(),
+  check('filmDirector', 'Film director must be an array of strings').isArray(),
+  check('trailerLink', 'Trailer link must be a valid URL').isURL(),
+  check('posterUrl', 'Poster URL must be a valid URL').isURL(),
+  check('genres', 'Genres must be an array of strings').optional().isArray(),
+];
+
+
+// export const genreValidation = [
+//   check('genres', 'Genres must be an array of strings').optional().isArray(),
 // ];
 
-// export const typeValidation = [
-//   check('name', 'Type name is required').notEmpty(),
+// export const yearValidation = [
+//   check('releaseDate', 'Release date must be a valid date').isDate(),
 // ];
 
-// export const brandValidation = [
-//   check('name', 'Brand name is required').notEmpty(),
+// export const filmDirectorValidation = [
+//   check('filmDirector', 'Film director must be an array of strings').isArray(),
 // ];
 
-/*
+export const userValidation = [
+  check('username').notEmpty().withMessage('Username is required'),
+check('email').notEmpty().withMessage('Email is required').isEmail().withMessage('Invalid email'),
+];
 
-check('username').notEmpty().withMessage('Username is required'),
- check('email').notEmpty().withMessage('Email is required').isEmail().withMessage('Invalid email'),
-check('price').isNumeric().withMessage('Price must be a numeric value')
 // Custom password validation regex
 
-At least 8 characters long
-Contains at least one uppercase letter
-Contains at least one lowercase letter
-Contains at least one digit
-Contains at least one special character (e.g., !@#$%^&*)
-
-
-*/
+// At least 8 characters long
+// Contains at least one uppercase letter
+// Contains at least one lowercase letter
+// Contains at least one digit
+// Contains at least one special character (e.g., !@#$%^&*)

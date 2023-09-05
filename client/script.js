@@ -4,7 +4,7 @@ function populateFiltersOptions() {
   const yearSelect = document.getElementById("year");
   const directorSelect = document.getElementById("director");
 
-  fetch("http://localhost:5775/api/genres")
+  fetch("http://localhost:5775/api/movies/genres")
     .then((response) => response.json())
     .then((result) => {
       genreSelect.innerHTML = '<option value="all">All genres</option>';
@@ -18,7 +18,7 @@ function populateFiltersOptions() {
     })
     .catch((error) => console.log("Error genres: ", error));
 
-  fetch("http://localhost:5775/api/years")
+  fetch("http://localhost:5775/api/movies/years")
     .then((response) => response.json())
     .then((result) => {
       yearSelect.innerHTML = '<option value="all">All Realease Dates</option>';
@@ -32,7 +32,7 @@ function populateFiltersOptions() {
     })
     .catch((error) => console.log("Error years: ", error));
 
-    fetch("http://localhost:5775/api/directors")
+    fetch("http://localhost:5775/api/movies/directors")
     .then((response) => response.json())
     .then((result) => {
       directorSelect.innerHTML = '<option value="all">All Film Directors</option>';
@@ -115,6 +115,11 @@ function createMovieCard(movie) {
       </div>
   </div>`;
 }
+
+//change movie page title
+// function handleMovieTitle() {
+
+// }
 
 //filter btn
 function handleFilterBtnClick() {

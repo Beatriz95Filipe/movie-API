@@ -53,7 +53,6 @@ const UserSchema = new mongoose.Schema({
 });
 
 
-// const RoleModel = mongoose.model<IRole>("Role", RoleSchema);
 const UserModel = mongoose.model<IUser>("User", UserSchema);
 
 export { UserModel };

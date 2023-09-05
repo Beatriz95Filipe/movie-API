@@ -10,7 +10,7 @@ function errorMiddleware (err: Error, req: Request, res: Response, next: NextFun
 
         res.status(status).json({ timestamp, error: message, errors });
     } else {
-        res.status(500).json({ error: "Internal Server Error" });
+        throw ApiError.InternalServerError("Internal Server Error");
     }
 }
 

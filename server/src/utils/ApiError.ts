@@ -32,7 +32,7 @@ class ApiError extends Error {
     static ForbiddenError(message: string, errors: any[] = []): ApiError {
         return new ApiError(403, message, errors);
     }
-    
+
     // throw ApiError.ConflictError("User already exists", [{ field: "email", message: "Email is already in use" }]);
     static ConflictError(message: string, errors: any[] = []): ApiError {
         return new ApiError(409, message, errors);
