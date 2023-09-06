@@ -1,6 +1,7 @@
 import { IUser, UserModel } from "./../models/UserModel.js";
 import { IRole }  from "./../models/RoleModel.js";
 import bcrypt from 'bcryptjs';
+import ApiError from "../utils/ApiError.js";
 
 let users: IUser[] = [];
 
@@ -27,7 +28,6 @@ class UserService {
     }
   }
 
-
   async register(
     name: string,
     email: string,
@@ -36,16 +36,16 @@ class UserService {
     ): Promise<IUser | undefined> {
     try {
       if (!password) {
-        throw new Error("Password is required.");
+        throw ApiError.BadRequestError("Password is required.");
       }
       if (!roles.every(role => typeof role === "string")) {
-        throw new Error('Invalid role value.');
+        throw ApiError.BadRequestError("Invalid role value.");
       }
 
       //check if user already exists
       const existingUser = users.find(user => user.email === email);
       if(existingUser) {
-        throw new Error("An User with this email already exists.");
+        throw ApiError.ConflictError("An user with this email already exists.");
       }
 
       // generates a hashed password to store in the database
@@ -58,8 +58,9 @@ class UserService {
         roles
       });
       return createdUser as IUser;
-    } catch (err) {
-        throw new Error('Failed to create user');
+    } catch (error) {
+      console.error(error);
+      throw ApiError.InternalServerError("Failed to create user.");
     }
   }
 }

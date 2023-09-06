@@ -12,7 +12,7 @@ class AuthController {
     try {
       const userRoles = req.user.roles;
 
-      if (!userRoles.includes("64d4ce1067e9ac029c7d140f")) {
+      if (!userRoles.includes("64f8e7589f2a3c538298b6f4")) {
         throw ApiError.ForbiddenError("Access denied. User is not an admin.");
       }
 
@@ -20,12 +20,14 @@ class AuthController {
 
       res.json(allUsers);
     } catch (error) {
+      console.error(error);
       next(error);
     }
   }
   async register(req: Request, res: Response, next: NextFunction) {
     try {
       const errors = validationResult(req);
+      console.error(errors);
 
       if (!errors.isEmpty()) {
         throw ApiError.InternalServerError("Error during registration.");
@@ -36,8 +38,11 @@ class AuthController {
       const { name, email, password, roleIds } = req.body;
       const newUser = await AuthService.register(name, email, password, roleIds);
       const { accessToken } = TokenService.generateAccessToken(newUser);
+
+      console.error(newUser, accessToken);
       res.status(201).json({ accessToken: accessToken, user: newUser });
     } catch (error) {
+      console.error(error);
       next(error);
       // res.status(500).json({ errorMessage: 'Registration failed', error: error });
     }
@@ -63,6 +68,7 @@ class AuthController {
 
       res.json({ accessToken, user });
     } catch (error) {
+      console.error(error);
       next(error);
     }
   }
@@ -70,9 +76,15 @@ class AuthController {
   async createRole(req: Request, res: Response, next: NextFunction) {
     try {
       const { roleName } = req.body;
-      const createdRole: IRole = await RoleModel.create({ name: roleName })
+      const createdRole: IRole = await RoleModel.create({ name: roleName });
+
+      if (!createdRole) {
+        throw ApiError.InternalServerError("Unable to create Role.");
+      }
+
       return res.status(201).json(createdRole);
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }

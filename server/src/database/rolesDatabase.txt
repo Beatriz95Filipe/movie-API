@@ -1,0 +1,19 @@
+{
+    "name": "ADMIN",
+    "_id": "64f8e7589f2a3c538298b6f4",
+    "__v": 0
+}
+
+
+{
+    "name": "USER",
+    "_id": "64f8e79e0b80b75a3b5c78f4",
+    "__v": 0
+}
+
+
+{
+    "name": "GUEST",
+    "_id": "64f8e7da2cd5f42abfb8d000",
+    "__v": 0
+}

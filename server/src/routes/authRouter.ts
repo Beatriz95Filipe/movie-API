@@ -6,7 +6,7 @@ import { check } from "express-validator";
 //CRUD
 const router = express.Router();
 
-//POST ROLES
+//POST - CREATE ROLES
 router.post(
   "/roles",
   [

@@ -1,10 +1,12 @@
 import { IUser, UserModel } from "./../models/UserModel.js";
 import { IRole, RoleModel } from "./../models/RoleModel.js";
+import ApiError from "../utils/ApiError.js";
 
 class AuthService {
   async isAdmin(user: IUser) {
-    return user.roles.includes("64d4ce1067e9ac029c7d140f");
+    return user.roles.includes("64f8e7589f2a3c538298b6f4");
   }
+
   async getAll() {
     try {
       const allUsers: IUser[] = await UserModel.find()
@@ -14,8 +16,9 @@ class AuthService {
       console.log(allUsers)
 
       return allUsers;
-    } catch (err) {
-      console.log(err)
+    } catch (error) {
+      console.log(error);
+      throw error;
     }
   }
   async getOne(userId: string) {
@@ -24,8 +27,8 @@ class AuthService {
         .populate('roles')
         .select('-password');
       return user;
-    } catch (err) {
-      console.log(err)
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -34,11 +37,12 @@ class AuthService {
       const existingUser = await UserModel.findOne({ email });
 
       if (existingUser) {
-        throw new Error(`User ${name} already exists`);
+        throw ApiError.ConflictError(`User ${name} already exists`);
       }
 
-      // Assign roles based on provided roleIds or use the default role ID
-      const rolesToAssign = roleIds.length > 0 ? roleIds : ['64d3f76dba59ae4c470f901f'];
+      // Assign roles based on provided roleIds or use the default role ID = USER
+      const rolesToAssign = roleIds.length > 0 ? roleIds : ['64f8e79e0b80b75a3b5c78f4'];
+      console.error(rolesToAssign);
 
       const newUser: IUser = new UserModel({
         name,
@@ -53,13 +57,17 @@ class AuthService {
 
     } catch (error) {
       console.error(error);
-      throw new Error("Registration failed.");
+      throw ApiError.InternalServerError("Registration failed.");
     }
   }
 
 
 
-  async login() { }
+  // async login() { }
 }
 
 export default new AuthService();
+
+// function next(error: unknown) {
+//   throw new Error("Function not implemented.");
+// }

@@ -51,6 +51,7 @@ class UserController {
       const { accessToken } = TokenService.generateAccessToken(createdUser);
       res.status(201).json({ accessToken: accessToken, user: createdUser});
     } catch (error) {
+      console.error(error);
       next(error);
     }
   }
