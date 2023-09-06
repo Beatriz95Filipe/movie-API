@@ -1,0 +1,21 @@
+@import "../parcials/colors";
+@import "../parcials/typo";
+@import "../parcials/mixins";
+
+
+.movie_card {
+    background-color: rgba($p-color-black, 0.8);
+    @include flex(flex-start, flex-start);
+    flex-wrap: wrap;
+    margin-top: 80px;
+    min-height: 120px;
+    padding: 40px;
+
+    &_trailer {
+        max-width: 33%;
+    }
+
+    &_info {
+        padding: 8px;
+    }
+}

@@ -11,12 +11,12 @@
 </head>
 <body>
     <section class="container movie_card">
-        <div class="col-lg-4 movie_trailer">
+        <div class="col-lg-4 movie_card_trailer">
             <video class="movie_video" muted autoplay loop>
-                <source src="./assets/movie_trailer.png">
+                <source src="https://youtu.be/ur1B_f1FXZ4">
             </video>
         </div>
-        <div class="col-lg-8 movie_info">
+        <div class="col-lg-8 movie_card_info">
             <h2>movie title</h2>
             <h3>year, fil director</h3>
             <p>genres</p>
@@ -25,7 +25,10 @@
     <section class="container movie_rating">
         <img src="./assets/movie-rating.png" alt="rating">
         <form id="rating" class="rating" action="">
-            <input type="text" placeholder="Give us your review about this movie" name="commentField">
+            <div class="rating_review">
+                <input type="text" placeholder="Give us your review about this movie" name="commentField">
+                <select class="rating_select" name="rateSelect" id="rateSelect"></select>
+            </div>
             <button class="rate_btn" id="rateBtn" type="submit">Send review</button>
         </form>
     </section>

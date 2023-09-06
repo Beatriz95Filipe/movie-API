@@ -67,6 +67,23 @@ button.filter_btn {
   text-transform: uppercase;
 }
 
+.movie_card_info {
+  font-family: "Roboto", sans-serif;
+  color: #fffaec;
+  text-transform: capitalize;
+  line-height: 150%;
+}
+.movie_card_info h2 {
+  font-size: 16.8px;
+}
+.movie_card_info h3 {
+  font-size: 12.6px;
+}
+.movie_card_info p {
+  font-size: 9.8px;
+  color: #fffaec;
+}
+
 .login_btn {
   background: none;
   border: none;
@@ -346,6 +363,23 @@ button.filter_btn {
   text-transform: uppercase;
 }
 
+.movie_card_info {
+  font-family: "Roboto", sans-serif;
+  color: #fffaec;
+  text-transform: capitalize;
+  line-height: 150%;
+}
+.movie_card_info h2 {
+  font-size: 16.8px;
+}
+.movie_card_info h3 {
+  font-size: 12.6px;
+}
+.movie_card_info p {
+  font-size: 9.8px;
+  color: #fffaec;
+}
+
 body {
   background-color: #eeddb4;
 }
@@ -413,6 +447,23 @@ button.filter_btn {
   font-family: "Roboto", sans-serif;
   color: #fffcf6;
   text-transform: uppercase;
+}
+
+.movie_card_info {
+  font-family: "Roboto", sans-serif;
+  color: #fffaec;
+  text-transform: capitalize;
+  line-height: 150%;
+}
+.movie_card_info h2 {
+  font-size: 16.8px;
+}
+.movie_card_info h3 {
+  font-size: 12.6px;
+}
+.movie_card_info p {
+  font-size: 9.8px;
+  color: #fffaec;
 }
 
 .modal {
@@ -506,6 +557,126 @@ button.filter_btn {
   font-family: "Roboto", sans-serif;
   color: #fffcf6;
   text-transform: uppercase;
+}
+
+.movie_card_info {
+  font-family: "Roboto", sans-serif;
+  color: #fffaec;
+  text-transform: capitalize;
+  line-height: 150%;
+}
+.movie_card_info h2 {
+  font-size: 16.8px;
+}
+.movie_card_info h3 {
+  font-size: 12.6px;
+}
+.movie_card_info p {
+  font-size: 9.8px;
+  color: #fffaec;
+}
+
+.movie_card {
+  background-color: rgba(26, 26, 26, 0.8);
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 80px;
+  min-height: 120px;
+  padding: 40px;
+}
+.movie_card_trailer {
+  max-width: 33%;
+}
+.movie_card_info {
+  padding: 8px;
+}
+
+body {
+  background-color: #eeddb4;
+}
+
+body {
+  background-color: #eeddb4;
+}
+
+@font-face {
+  font-family: "Roboto", sans-serif;
+  src: url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+}
+a {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  text-decoration: none;
+  color: #1a1a1a;
+}
+a:hover {
+  cursor: pointer;
+}
+
+p {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+}
+
+.search_filter label {
+  font-size: 12.6px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: uppercase;
+}
+.search_filter select, .search_filter option {
+  font-size: 11.2px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+
+.searchbar input {
+  font-size: 11.2px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+
+button.login_btn {
+  font-size: 16.8px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+button.login_btn:hover {
+  font-weight: bold;
+  color: #973e3e;
+}
+button.login_btn_submit {
+  text-transform: uppercase;
+}
+
+button.filter_btn {
+  font-size: 11.2px;
+  font-family: "Roboto", sans-serif;
+  color: #fffcf6;
+  text-transform: uppercase;
+}
+
+.movie_card_info {
+  font-family: "Roboto", sans-serif;
+  color: #fffaec;
+  text-transform: capitalize;
+  line-height: 150%;
+}
+.movie_card_info h2 {
+  font-size: 16.8px;
+}
+.movie_card_info h3 {
+  font-size: 12.6px;
+}
+.movie_card_info p {
+  font-size: 9.8px;
+  color: #fffaec;
 }
 
 .navbar {
@@ -606,6 +777,23 @@ button.filter_btn {
   text-transform: uppercase;
 }
 
+.movie_card_info {
+  font-family: "Roboto", sans-serif;
+  color: #fffaec;
+  text-transform: capitalize;
+  line-height: 150%;
+}
+.movie_card_info h2 {
+  font-size: 16.8px;
+}
+.movie_card_info h3 {
+  font-size: 12.6px;
+}
+.movie_card_info p {
+  font-size: 9.8px;
+  color: #fffaec;
+}
+
 .search_filters {
   background-color: #eeddb4;
   padding: 20px;
@@ -698,6 +886,23 @@ button.filter_btn {
   font-family: "Roboto", sans-serif;
   color: #fffcf6;
   text-transform: uppercase;
+}
+
+.movie_card_info {
+  font-family: "Roboto", sans-serif;
+  color: #fffaec;
+  text-transform: capitalize;
+  line-height: 150%;
+}
+.movie_card_info h2 {
+  font-size: 16.8px;
+}
+.movie_card_info h3 {
+  font-size: 12.6px;
+}
+.movie_card_info p {
+  font-size: 9.8px;
+  color: #fffaec;
 }
 
 .searchbar {

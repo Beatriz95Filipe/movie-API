@@ -68,3 +68,23 @@ button.filter_btn {
 	color: $p-color-white;
 	text-transform: uppercase;
 }
+
+.movie_card_info {
+	font-family: 'Roboto', sans-serif;
+	color: $bg-light-bege;
+	text-transform: capitalize;
+	line-height: 150%;
+
+	h2{
+		@include fontSize(1.2);
+	}
+
+	h3{
+		@include fontSize(0.9);
+	}
+
+	p{
+		@include fontSize(0.7);
+		color: $bg-light-bege;
+	}
+}
