@@ -1,6 +1,6 @@
 import express from "express";
 import AuthController from "./../controllers/AuthController.js";
-import authMiddleware from "./../middlewares/AuthMiddleware.js";
+import { authMiddleware, isAdmin} from "./../middlewares/AuthMiddleware.js";
 import { check } from "express-validator";
 
 //CRUD
@@ -16,7 +16,7 @@ router.post(
 );
 
 //DELETE ROLES
-router.delete("/roles/:id", AuthController.deleteRole);
+router.delete("/roles/:id", isAdmin, AuthController.deleteRole);
 
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 

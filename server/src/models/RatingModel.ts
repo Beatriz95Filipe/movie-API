@@ -1,15 +1,13 @@
 import mongoose from "mongoose";
 import IRating from "../interfaces/RatingInterface.js";
-import { IUser } from "../models/UserModel.js";
-import IMovie from "../interfaces/MovieInterface.js";
 
 const RatingSchema = new mongoose.Schema<IRating>({
-  movie: {
+  movieId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Movie", //reference to MovieModel
+    ref: 'Movie',
     required: true,
   },
-  user: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User", //reference to UserModel
     required: true,

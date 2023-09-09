@@ -13,7 +13,8 @@ declare global {
     }
   }
 }
-export default function authMiddleware(req: Request, res: Response, next: NextFunction) {
+
+function authMiddleware(req: Request, res: Response, next: NextFunction) {
 
   const authToken = req.headers.authorization;
 
@@ -32,3 +33,14 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
 
   next();
 }
+
+function isAdmin(req: Request, res: Response, next: NextFunction) {
+  const user = req.user;
+  if (user.roles.includes("64f8e7589f2a3c538298b6f4")) {
+    next(); // user is ADMIN, user can delete
+  } else {
+    next(ApiError.ForbiddenError("Access denied. User is not an admin."));
+  }
+}
+
+export { authMiddleware, isAdmin  };

@@ -1,6 +1,7 @@
 import { IUser, UserModel } from "./../models/UserModel.js";
-import { IRole, RoleModel } from "./../models/RoleModel.js";
 import ApiError from "../utils/ApiError.js";
+import bcrypt from 'bcryptjs';
+import TokenService from "./TokenService.js";
 
 class AuthService {
   async isAdmin(user: IUser) {
@@ -62,8 +63,30 @@ class AuthService {
   }
 
 
+  async login(email: string, password: string) {
+    const user = await UserModel.find({email});
 
-  // async login() { }
+    try {
+      const user = await UserModel.findOne({ email });
+
+      if (!user) {
+        throw ApiError.UnauthorizedError("Authentication failed");
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordValid) {
+        throw ApiError.UnauthorizedError("Authentication failed");
+      }
+
+      const { accessToken } = TokenService.generateAccessToken(user);
+
+      return { accessToken, user };
+    } catch (error) {
+      console.error(error);
+      throw ApiError.InternalServerError("Authentication failed.");
+    }
+  }
 }
 
 export default new AuthService();

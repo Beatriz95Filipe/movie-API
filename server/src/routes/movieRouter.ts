@@ -1,5 +1,6 @@
 import express from "express";
 import MovieController from "../controllers/MovieController.js";
+import { isAdmin } from "../middlewares/AuthMiddleware.js";
 
 //CRUD
 const router = express.Router();
@@ -17,6 +18,18 @@ router.post("/movies", MovieController.create);
 router.put("/movies/:id", MovieController.update);
 
 //DELETE
-router.delete("/movies/:id", MovieController.delete);
+router.delete("/movies/:id", isAdmin, MovieController.delete);
+
+//POST RATING
+router.post("/movies/rating", MovieController.rateMovie);
+
+//GET ALL RATINGS
+router.get("/movies/rating", MovieController.getAllRatings);
+
+//GET RATINGS BY ID
+router.get("/movies/rating/:id", MovieController.getRatingsById);
+
+//DELETE RATING
+router.delete("/movies/rating/:id", isAdmin, MovieController.deleteRating);
 
 export default router;

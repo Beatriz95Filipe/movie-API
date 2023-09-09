@@ -52,20 +52,13 @@ class AuthController {
     const { email, password } = req.body;
 
     try {
-      const user = await UserModel.findOne({ email });
-
-      if (!user) {
-        throw ApiError.UnauthorizedError("Authentication failed");
+      const errors = validationResult(req);
+      console.error(errors);
+      if (!errors.isEmpty()) {
+        throw ApiError.InternalServerError("Error during login.");
       }
 
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-
-      if (!isPasswordValid) {
-        throw ApiError.UnauthorizedError("Authentication failed");
-      }
-
-      const { accessToken } = TokenService.generateAccessToken(user);
-
+      const { accessToken, user } = await AuthService.login(email, password);
       res.json({ accessToken, user });
     } catch (error) {
       console.error(error);

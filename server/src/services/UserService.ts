@@ -10,6 +10,7 @@ class UserService {
   async getAll(): Promise<IUser[]> {
     try{
         const allUsers = await UserModel.find();
+        console.log(allUsers);
         return allUsers;
     } catch (err) {
         console.log(err);

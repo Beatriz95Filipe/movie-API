@@ -1,61 +1,95 @@
-{
-    "name": "Beatriz",
-    "email": "beatriz.filipe@gmail.com",
-    "password": "beatriZ123!",
-    "roleIds": [
-        "64f8e7589f2a3c538298b6f4",
-        "64f8e79e0b80b75a3b5c78f4"
-    ]
-}
-
-
-{
-    "name": "AnaCamby",
-    "email": "camby@gmail.com",
-    "password": "cambY456!",
-    "roleIds": [
-        "64f8e79e0b80b75a3b5c78f4"
-    ]
-}
-
-
-{
-    "name": "Margarida",
-    "email": "flowerpower@gmail.com",
-    "password": "magS789!",
-    "roleIds": [
-        "64f8e79e0b80b75a3b5c78f4"
-    ]
-}
-
-
-{
-    "name": "AnaRita",
-    "email": "ritaRita@gmail.com",
-    "password": "RitA789!",
-    "roleIds": [
-        "64f8e79e0b80b75a3b5c78f4",
-        "64f8e7da2cd5f42abfb8d000"
-    ]
-}
-
-
-{
-    "name": "Vitória",
-    "email": "vitoriakid@gmail.com",
-    "password": "babyGirl123!",
-    "roleIds": [
-        "64f8e79e0b80b75a3b5c78f4",
-        "64f8e7da2cd5f42abfb8d000"
-    ]
-}
-
-
-{
-    "name": "Cláudia",
-    "email": "claudia.sofia@gmail.com",
-    "password": "cloudS159!",
-    "roleIds": [
-        "64f8e79e0b80b75a3b5c78f4"
-    ]
-}
+[
+    {
+        "_id": "64f8fce532a17b34c22907cc",
+        "name": "Beatriz",
+        "email": "beatriz.filipe@gmail.com",
+        "roles": [
+            {
+                "_id": "64f8e7589f2a3c538298b6f4",
+                "name": "ADMIN",
+                "__v": 0
+            },
+            {
+                "_id": "64f8e79e0b80b75a3b5c78f4",
+                "name": "USER",
+                "__v": 0
+            }
+        ],
+        "__v": 0
+    },
+    {
+        "_id": "64f8fedbe515b33d20ed887b",
+        "name": "AnaCamby",
+        "email": "camby@gmail.com",
+        "roles": [
+            {
+                "_id": "64f8e79e0b80b75a3b5c78f4",
+                "name": "USER",
+                "__v": 0
+            }
+        ],
+        "__v": 0
+    },
+    {
+        "_id": "64f8ff3de515b33d20ed887e",
+        "name": "Margarida",
+        "email": "flowerpower@gmail.com",
+        "roles": [
+            {
+                "_id": "64f8e79e0b80b75a3b5c78f4",
+                "name": "USER",
+                "__v": 0
+            }
+        ],
+        "__v": 0
+    },
+    {
+        "_id": "64f8ffa9e515b33d20ed8881",
+        "name": "AnaRita",
+        "email": "ritarita@gmail.com",
+        "roles": [
+            {
+                "_id": "64f8e79e0b80b75a3b5c78f4",
+                "name": "USER",
+                "__v": 0
+            },
+            {
+                "_id": "64f8e7da2cd5f42abfb8d000",
+                "name": "GUEST",
+                "__v": 0
+            }
+        ],
+        "__v": 0
+    },
+    {
+        "_id": "64f90002e515b33d20ed8884",
+        "name": "Vitória",
+        "email": "vitoriakid@gmail.com",
+        "roles": [
+            {
+                "_id": "64f8e79e0b80b75a3b5c78f4",
+                "name": "USER",
+                "__v": 0
+            },
+            {
+                "_id": "64f8e7da2cd5f42abfb8d000",
+                "name": "GUEST",
+                "__v": 0
+            }
+        ],
+        "__v": 0
+    },
+    {
+        "_id": "64f90067e515b33d20ed8887",
+        "name": "Cláudia",
+        "email": "claudia.sofia@gmail.com",
+        "roles": [
+            {
+                "_id": "64f8e79e0b80b75a3b5c78f4",
+                "name": "USER",
+                "__v": 0
+            }
+        ],
+        "__v": 0
+    }
+]
