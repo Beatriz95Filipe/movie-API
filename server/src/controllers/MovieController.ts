@@ -3,7 +3,7 @@ import IMovie from "../interfaces/MovieInterface.js";
 import MovieService from "../services/MovieService.js";
 import ApiError from "../utils/ApiError.js";
 import MovieRepository from "../repositories/MovieRepository.js";
-import IRating from "../interfaces/RatingInterface.js";
+import { IRating, IRatingNumbers } from "../interfaces/RatingInterface.js";
 import RatingModel from "../models/RatingModel.js";
 
 class MovieController {
@@ -119,7 +119,10 @@ class MovieController {
             const { movieId, userId, rating, comment } = req.body;
 
             const newRating = {
-                movieId, userId, rating, comment
+                movieId,
+                userId,
+                rating,
+                comment
             } as IRating;
 
             const savedRating = await MovieService.rateMovie(newRating);
@@ -148,11 +151,13 @@ class MovieController {
     async getRatingsById(req: Request, res: Response, next: NextFunction){
         try {
             const { movieId } = req.params;
+            console.log("movieId:", movieId);
             const ratings = await MovieService.getRatingsById(movieId);
             if (!ratings) {
                 throw ApiError.NotFoundError(`Ratings not found for ${movieId}`);
             }
 
+            console.log(ratings);
             res.status(200).json(ratings);
         } catch (error) {
             console.log(error);

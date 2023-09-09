@@ -1,5 +1,5 @@
 import IMovie from "../interfaces/MovieInterface.js";
-import IRating from "../interfaces/RatingInterface.js";
+import { IRating, IRatingNumbers } from "../interfaces/RatingInterface.js";
 import MovieRepository from "../repositories/MovieRepository.js";
 import RatingModel from "../models/RatingModel.js";
 import { Types } from "mongoose";
@@ -68,11 +68,11 @@ class MovieService {
     //POST create rating
     async rateMovie(
         rating: IRating,
-    ) {
+    ): Promise<IRating | null> {
         try {
             const ratedMovie = await RatingModel.create(rating);
 
-            const savedRating: IRating | null = await RatingModel.findById(ratedMovie._id)
+            const savedRating = await RatingModel.findById(ratedMovie._id)
             .populate({
                 path: "movieId", //reference document
                 select: "title", //only title
@@ -103,11 +103,21 @@ class MovieService {
         }
     }
 
-    async getRatingsById(movieId: Types.ObjectId | string): Promise<IRating[]> {
+    async getRatingsById(movieId: Types.ObjectId | string): Promise<{ ratings: IRating[], totalRatings: number, averageRating: number }>{
         try {
             const ratings = await RatingModel.find({movieId});
-            return ratings;
+
+            const totalRatings = ratings.length;
+            if (totalRatings === 0) {
+                return { ratings: [], averageRating: 0, totalRatings: 0 };
+            }
+
+            const sumRating = ratings.reduce((sum, rating) => sum + rating.rating, 0);
+            const averageRating = sumRating / totalRatings;
+
+            return {ratings, averageRating, totalRatings};
         } catch (error) {
+            console.log(error);
             throw new Error(`Ratings not found for ${movieId}`);
         }
     }

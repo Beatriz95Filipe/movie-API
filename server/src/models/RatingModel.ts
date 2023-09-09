@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import IRating from "../interfaces/RatingInterface.js";
+import {IRating} from "../interfaces/RatingInterface.js";
 
 const RatingSchema = new mongoose.Schema<IRating>({
   movieId: {

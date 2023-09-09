@@ -93,3 +93,70 @@
         "__v": 0
     }
 ]
+
+
+----------
+
+USERS REGISTRATION:
+
+{
+    "name": "Beatriz",
+    "email": "beatriz.filipe@gmail.com",
+    "password": "beatriZ123!",
+    "roleIds": [
+        "64f8e7589f2a3c538298b6f4",
+        "64f8e79e0b80b75a3b5c78f4"
+    ]
+}
+
+
+{
+    "name": "AnaCamby",
+    "email": "camby@gmail.com",
+    "password": "cambY456!",
+    "roleIds": [
+        "64f8e79e0b80b75a3b5c78f4"
+    ]
+}
+
+
+{
+    "name": "Margarida",
+    "email": "flowerpower@gmail.com",
+    "password": "magS789!",
+    "roleIds": [
+        "64f8e79e0b80b75a3b5c78f4"
+    ]
+}
+
+
+{
+    "name": "AnaRita",
+    "email": "ritaRita@gmail.com",
+    "password": "RitA789!",
+    "roleIds": [
+        "64f8e79e0b80b75a3b5c78f4",
+        "64f8e7da2cd5f42abfb8d000"
+    ]
+}
+
+
+{
+    "name": "Vitória",
+    "email": "vitoriakid@gmail.com",
+    "password": "babyGirl123!",
+    "roleIds": [
+        "64f8e79e0b80b75a3b5c78f4",
+        "64f8e7da2cd5f42abfb8d000"
+    ]
+}
+
+
+{
+    "name": "Cláudia",
+    "email": "claudia.sofia@gmail.com",
+    "password": "cloudS159!",
+    "roleIds": [
+        "64f8e79e0b80b75a3b5c78f4"
+    ]
+}

@@ -15,6 +15,7 @@ declare global {
 }
 
 function authMiddleware(req: Request, res: Response, next: NextFunction) {
+  //checks if user in logged in
 
   const authToken = req.headers.authorization;
 
@@ -33,6 +34,7 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
 
   next();
 }
+
 
 function isAdmin(req: Request, res: Response, next: NextFunction) {
   const user = req.user;
