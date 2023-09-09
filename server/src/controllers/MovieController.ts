@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import IMovie from "../interfaces/MovieInterface.js";
 import MovieService from "../services/MovieService.js";
 import ApiError from "../utils/ApiError.js";
-import MovieModel from "../models/MovieModel.js";
 import MovieRepository from "../repositories/MovieRepository.js";
 import IRating from "../interfaces/RatingInterface.js";
 import RatingModel from "../models/RatingModel.js";
@@ -135,10 +134,10 @@ class MovieController {
     async getAllRatings(req: Request, res: Response, next: NextFunction) {
         try {
             const allRatings = await MovieService.getAllRatings();
-            if(!allRatings) {
-                throw ApiError.NotFoundError("Cannot get ratings");
-            }
-            console.log(allRatings);
+            // if(allRatings.length === 0) {
+            //     throw ApiError.NotFoundError("No ratings found.");
+            // }
+            // console.log(allRatings);
             res.json(allRatings);
         } catch (error) {
             console.log(error);

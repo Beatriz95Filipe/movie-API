@@ -21,15 +21,15 @@ router.put("/movies/:id", MovieController.update);
 router.delete("/movies/:id", isAdmin, MovieController.delete);
 
 //POST RATING
-router.post("/movies/rating", MovieController.rateMovie);
+router.post("/ratings", MovieController.rateMovie);
 
 //GET ALL RATINGS
-router.get("/movies/rating", MovieController.getAllRatings);
+router.get("/ratings", MovieController.getAllRatings);
 
 //GET RATINGS BY ID
-router.get("/movies/rating/:id", MovieController.getRatingsById);
+router.get("/ratings/:id", MovieController.getRatingsById);
 
 //DELETE RATING
-router.delete("/movies/rating/:id", isAdmin, MovieController.deleteRating);
+router.delete("/ratings/:id", isAdmin, MovieController.deleteRating);
 
 export default router;
