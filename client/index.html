@@ -19,10 +19,19 @@
             <div class="modal_content">
                 <span class="close">&times;</span>
                 <h2>Login or Register</h2>
-                <input type="text" placeholder="Name" id="name">
-                <input type="email" placeholder="Email" id="email">
-                <button id="login_btn_submit">Enter your account</button>
-                <p>Don't have an account? <a href="#">Register</a></p>
+                <form action="" id="loginForm">
+                    <input type="email" placeholder="Email" id="loginEmail">
+                    <input type="password" placeholder="Password" id="loginPass">
+                    <button type="submit" id="loginBtn">Enter your account</button>
+                </form>
+                <form action="" id="registerForm">
+                    <p>Don't have an account?</p>
+                    <input type="text" placeholder="Name" id="registerName">
+                    <input type="email" placeholder="Email" id="registerEmail">
+                    <input type="password" placeholder="Password" id="registerPass">
+                    <button type="submit" id="registerBtn">Register your account</button>
+                </form>
+                <p>Already have an account? <a href="#" id="toggleForms">Login</a></p>
             </div>
         </div>
     </nav>
@@ -55,12 +64,9 @@
     </div>
     <section class="container">
         <div class="row movies_container" id="movies_container">
-            <div class="col-lg-4 movie_card">
-                <!-- <a href="">
-                    <img src="assets/category-seating.webp" alt="seating">
-                </a>
-                <p class="categories__thumbnail__text">Seating</p> -->
-            </div>
+            <!-- <img src="./../static/no-image.jpg" alt=""> -->
+            <!-- <div class="col-lg-4 movie_card">
+            </div> -->
         </div>
     </section>
 

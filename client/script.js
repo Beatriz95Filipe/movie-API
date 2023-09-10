@@ -1,188 +1,288 @@
+const body = document.getElementsByTagName("body");
+
 //get filter options from movies specifics
 function populateFiltersOptions() {
   const genreSelect = document.getElementById("genre");
   const yearSelect = document.getElementById("year");
   const directorSelect = document.getElementById("director");
 
-  fetch("http://localhost:5775/api/movies/genres")
+  fetch("http://localhost:5775/api/genres")
     .then((response) => response.json())
     .then((result) => {
+      //console.log("Genres:", result);
       genreSelect.innerHTML = '<option value="all">All genres</option>';
 
       result.forEach((genre) => {
-        typeSelect.insertAdjacentHTML(
+        genreSelect.insertAdjacentHTML(
           "beforeend",
-          `<option value="${genre._id}">${genre.name}</option>`,
+          `<option value="${genre}">${genre}</option>`,
         );
       });
     })
     .catch((error) => console.log("Error genres: ", error));
 
-  fetch("http://localhost:5775/api/movies/years")
+  fetch("http://localhost:5775/api/years")
     .then((response) => response.json())
     .then((result) => {
+      //console.log("Years:", result);
       yearSelect.innerHTML = '<option value="all">All Realease Dates</option>';
 
       result.forEach((year) => {
+        const onlyYear = parseInt(year.slice(0, 4));
         yearSelect.insertAdjacentHTML(
           "beforeend",
-          `<option value="${year._id}">${year.name}</option>`,
+          `<option value="${onlyYear}">${onlyYear}</option>`,
         );
       });
     })
     .catch((error) => console.log("Error years: ", error));
 
-    fetch("http://localhost:5775/api/movies/directors")
-    .then((response) => response.json())
-    .then((result) => {
-      directorSelect.innerHTML = '<option value="all">All Film Directors</option>';
+  fetch("http://localhost:5775/api/directors")
+  .then((response) => response.json())
+  .then((result) => {
+    //console.log("Directors:", result);
+    directorSelect.innerHTML = '<option value="all">All Film Directors</option>';
 
-      result.forEach((director) => {
-        directorSelect.insertAdjacentHTML(
-          "beforeend",
-          `<option value="${director._id}">${director.name}</option>`,
-        );
-      });
-    })
-    .catch((error) => console.log("Error film directors: ", error));
+    result.forEach((director) => {
+      directorSelect.insertAdjacentHTML(
+        "beforeend",
+        `<option value="${director}">${director}</option>`,
+      );
+    });
+  })
+  .catch((error) => console.log("Error film directors: ", error));
 }
 
 populateFiltersOptions();
 
+//create moviecard
+function createMovieCard(movie){
+  return `
+  <div class="col-lg-4 movie_card">
+    <div class="card-body">
+      <h5 class="card-title">${movie.title}</h5>
+      <p class="card-text">${movie.releaseDate}, ${movie.filmDirector}</p>
+      <p class="card-text">${movie.genres}</p>
+      <a class="card-img" href="${movie.trailerLink}">
+          <img src="${movie.posterUrl}" alt="movie-poster">
+      </a>
+      <button class="btn delete-btn" data-id="${movie._id}">Delete</button>
+    </div>
+  </div>`;
+}
+
+
+function handleFilterBtnClick() {
+  const genre = document.getElementById("genre").value;
+  const year = document.getElementById("year").value;
+  const director = document.getElementById("director").value;
+
+  // console.log("Genre:", genre);
+  // console.log("Year:", year);
+  // console.log("Director:", director);
+
+  const queryParams = new URLSearchParams({
+    genre,
+    year,
+    director
+  }).toString();
+  console.log("params:", queryParams);
+
+  const url = `http://localhost:5775/api/movies/?${queryParams}`;
+
+  const moviesContainer = document.getElementById("movies_container");
+  moviesContainer.innerHTML = "";
+
+
+  fetch(url)
+  .then((response) => response.json())
+  .then((data) => {
+    const moviesArray = data.movies.movies;
+    //console.log(moviesArray);
+    if(moviesArray.length == 0) {productContainer.innerHTML = "<p style='text-align:center'>No products found... :(</p>"};
+    moviesArray.forEach((movie) => {
+      const movieCard = createMovieCard(movie);
+      moviesContainer.innerHTML += movieCard;
+    });
+  })
+  .catch((error) => console.error("Error fetching movies: ", error));
+
+      // const deletedBtns = document.querySelectorAll(".delete-btn");
+      // deletedBtns.forEach((deletedBtn) => {
+      //     deletedBtn.addEventListener("click", handleDeleteProduct);
+      // });
+}
+
+handleFilterBtnClick();
+
+const filterBtn = document.getElementById("filterBtn");
+filterBtn.addEventListener("click", handleFilterBtnClick);
+
+
 
 //search bar
 const createSearchBar = async () => {
-  let movies = await fetch("http://localhost:5775/api/movies");
-  console.log(movies);
+  try{
+    const response = await fetch("http://localhost:5775/api/movies");
+    if(!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const movies = await response.json();
+    console.log(movies);
 
-  let movieTitle = movies.map((movie) => movie.title.toLowerCase());
-  let movieDirector = movies.map((movie) => movie.filmDirector.toLowerCase());
+    let searchMoviesInput = document.getElementById("searchMoviesInput");
+    let searchResultsContainer = document.getElementById("searchResults");
 
-  let searchMoviesInput = document.getElementById("searchMoviesInput");
-  let searchResultsContainer = document.getElementById("searchResults");
+    searchMoviesInput.onkeyup = (searchInput) => {
+        let searchedMovie = searchInput.target.value.toLowerCase();
+        let matchingMovies = movies.filter((movie) => {
+          let movieTitleMatch = movie.title.toLowerCase().includes(searchedMovie);
+          let movieDirectorMatch = movie.filmDirector.toLowerCase().includes(searchedMovie);
+          return movieTitleMatch || movieDirectorMatch;
+        });
 
-  searchMoviesInput.onkeyup = (searchInput) => {
-      let searchedMovie = searchInput.target.value.toLowerCase();
-      let matchingMovies = [];
+        displaySearchResults(matchingMovies, searchedMovie);
+    }
 
-      for (let i = 0; i < movies.length; i++) {
-          if (movieTitle[i].includes(searchedMovie) || movieDirector[i].includes(searchedMovie)) {
-            matchingMovies.push(movies[i]);
-          }
-      }
-      displaySearchResults(matchingMovies, searchedMovie);
-  }
-}
+    const displaySearchResults = (matchingMovies, searchedMovie) => {
+      searchResultsContainer.innerHTML = "";
 
-const displaySearchResults = (matchingMovies, searchedMovie) => {
-  let searchMoviesInput = document.getElementById("searchMoviesInput");
-
-  let searchResultsContainer = document.getElementById("searchResults");
-  searchResultsContainer.innerHTML = "";
-
-  if (matchingMovies.length === 0) {
-    searchResultsContainer.innerHTML +=
-      `<div class="searchResultItem">
-        <p>It seems we can't find what you are looking for...</p>
-      </div>`;
-  } else if (searchedMovie.length === 0) {
-    searchResultsContainer.innerHTML +=
-      `<div class="searchResultItem"></div>`;
-  } else {
-    matchingMovies.forEach((movie) => {
-      searchResultsContainer.innerHTML +=
+      if (matchingMovies.length === 0 && searchedMovie.length > 0) {
+        searchResultsContainer.innerHTML +=
           `<div class="searchResultItem">
-              <p>${movie.title}</p>
-              <img src="${movie.posterUrl}">
+            <p>It seems we can't find what you are looking for...</p>
           </div>`;
-      });
+      } else {
+        matchingMovies.forEach((movie) => {
+          searchResultsContainer.innerHTML +=
+              `<div class="searchResultItem">
+                  <p>${movie.title}</p>
+                  <img src="${movie.posterUrl}" alt="${movie.title}">
+              </div>`;
+          });
+      }
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
 
-createSearchBar();
 
-//create movie card
-function createMovieCard(movie) {
-  return `<div class="col-lg-4 movie_card">
-      <div class="card-body">
-        <h5 class="card-title">${movie.title}</h5>
-        <p class="card-text">${movie.releaseDate}, ${movie.filmDirector}</p>
-        <p class="card-text">${movie.genres}</p>
-        <a class="card-img" href="${movie.trailerLink}">
-            <img src="${movie.posterUrl}" alt="movie-poster">
-        </a>
-        <button class="btn delete-btn" data-id="${movie._id}">Delete</button>
-      </div>
-  </div>`;
+
+document.addEventListener("DOMContentLoaded", () => {
+  createSearchBar();
+});
+
+
+const loginBtn = document.getElementById("loginBtn");
+const loginModal = document.getElementById("loginModal");
+
+//event listener to open modal
+loginBtn.onclick = () => {
+  loginModal.style.display = "block";
 }
+
+const closeModal = document.querySelector(".close");
+
+//event listener to close modal
+closeModal.onclick = () => {
+  loginModal.style.display = "none";
+}
+
+//toggle between login and register
+const loginForm = document.getElementById("loginForm");
+const registerForm = document.getElementById("registerForm");
+const loginButton = document.getElementById("loginBtn");
+const registerButton = document.getElementById("registerBtn");
+const toggleForms = document.getElementById("toggleForms");
+
+function toggleLogin() {
+  if(loginForm.style.display === "block"){
+    loginForm.style.display = "none";
+    registerForm.style.display = "block";
+  } else {
+    loginForm.style.display = "block";
+    registerForm.style.display = "none";
+  }
+}
+
+toggleForms.addEventListener("click", function(event) {
+  event.preventDefault();
+  toggleLogin();
+});
+
+//show login first
+loginForm.style.display = "block";
+registerForm.style.display = "none";
+
 
 //change movie page title
 // function handleMovieTitle() {
 
 // }
 
-//filter btn
-function handleFilterBtnClick() {
-  const genreId = document.getElementById("genre").value;
-  const yearsId = document.getElementById("year").value;
-  const directorId = document.getElementById("director").value;
+// //filter btn
+// function handleFilterBtnClick() {
+//   const genreId = document.getElementById("genre").value;
+//   const yearsId = document.getElementById("year").value;
+//   const directorId = document.getElementById("director").value;
 
-  const queryParams = new URLSearchParams({
-    genreId,
-    yearsId,
-    directorId,
-  }).toString();
+//   const queryParams = new URLSearchParams({
+//     genreId,
+//     yearsId,
+//     directorId,
+//   }).toString();
 
-  const url = `http://localhost:5775/api/movies/?${queryParams}`;
+//   const url = `http://localhost:5775/api/movies/?${queryParams}`;
 
-  const accessToken = localStorage.getItem("accessToken");
-  const headers = new Headers();
-  headers.append("Authorization", `Bearer ${accessToken}`);
+//   const accessToken = localStorage.getItem("accessToken");
+//   const headers = new Headers();
+//   headers.append("Authorization", `Bearer ${accessToken}`);
 
-  fetch(url, { headers })
-    .then((response) => response.json())
-    .then((data) => {
-      const moviesContainer = document.querySelector(".movies_container");
-      moviesContainer.innerHTML = "";
+//   fetch(url, { headers })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       const moviesContainer = document.querySelector(".movies_container");
+//       moviesContainer.innerHTML = "";
 
-      data.forEach((movie) => {
-        const movieElement = createMovieCard(movie);
-        moviesContainer.insertAdjacentHTML("beforeend", movieElement);
-      });
-      const deletedBtns = document.querySelectorAll(".delete-btn");
+//       data.forEach((movie) => {
+//         const movieElement = createMovieCard(movie);
+//         moviesContainer.insertAdjacentHTML("beforeend", movieElement);
+//       });
+//       const deletedBtns = document.querySelectorAll(".delete-btn");
 
-      deletedBtns.forEach((deletedBtn) => {
-        deletedBtn.addEventListener("click", handleDeleteMovie);
-      });
-    })
-    .catch((error) => console.error("Error fetching products:", error));
-}
+//       deletedBtns.forEach((deletedBtn) => {
+//         deletedBtn.addEventListener("click", handleDeleteMovie);
+//       });
+//     })
+//     .catch((error) => console.error("Error fetching products:", error));
+// }
 
-//delete movie btn
-function handleDeleteMovie(event) {
-  const movieId = event.target.dataset.id;
-  const accessToken = localStorage.getItem("accessToken");
+// //delete movie btn
+// function handleDeleteMovie(event) {
+//   const movieId = event.target.dataset.id;
+//   const accessToken = localStorage.getItem("accessToken");
 
-  const headers = new Headers();
-  headers.append("Authorization", `Bearer ${accessToken}`);
+//   const headers = new Headers();
+//   headers.append("Authorization", `Bearer ${accessToken}`);
 
-  fetch(`http://localhost:5775/api/movies/${movieId}`, {
-    method: "DELETE",
-    headers: headers,
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error deleting movie");
-      }
-      return response.json();
-    })
-    .then(() => {
-      event.target.parentElement.parentElement.parentElement.remove();
-    })
-    .catch((error) => console.error("Error deleting movie:", error));
-}
+//   fetch(`http://localhost:5775/api/movies/${movieId}`, {
+//     method: "DELETE",
+//     headers: headers,
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Error deleting movie");
+//       }
+//       return response.json();
+//     })
+//     .then(() => {
+//       event.target.parentElement.parentElement.parentElement.remove();
+//     })
+//     .catch((error) => console.error("Error deleting movie:", error));
+// }
 
-handleFilterBtnClick();
+// handleFilterBtnClick();
 
 // //login & register modal
 // var modal = document.getElementById("loginModal");
@@ -199,118 +299,127 @@ handleFilterBtnClick();
 //   }
 // }
 
-// Login function
-async function login(email, password) {
-  try {
-    // Clear any previous user information from localStorage
-    localStorage.removeItem("userName");
-    localStorage.removeItem("userEmail");
-    const response = await fetch("http://localhost:5775/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
 
-    if (!response.ok) {
-      alert("Login failed"); // Show alert for failed login
-      const loginModal = document.getElementById("loginModal");
-      loginModal.hide();
-    } else {
-      const data = await response.json();
+// //event listener to register
+// registerButton.onclick = () => {
+//   loginForm.style.display = "none";
+//   registerForm.style.display = "block";
+// }
 
-      if (data.accessToken && data.user) {
-        const { accessToken, user } = data;
 
-        // Store the access token
-        localStorage.setItem("accessToken", accessToken);
+// // Login function
+// async function login(email, password) {
+//   try {
+//     // Clear any previous user information from localStorage
+//     localStorage.removeItem("userName");
+//     localStorage.removeItem("userEmail");
+//     const response = await fetch("http://localhost:5775/auth/login", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ email, password }),
+//     });
 
-        // Store user information in localStorage
-        localStorage.setItem("userName", user.name);
-        localStorage.setItem("userEmail", user.email);
+//     if (!response.ok) {
+//       alert("Login failed"); // Show alert for failed login
+//       const loginModal = document.getElementById("loginModal");
+//       loginModal.hide();
+//     } else {
+//       const data = await response.json();
 
-        // Update the user profile in the navigation bar
-        handleLoginSuccess();
+//       if (data.accessToken && data.user) {
+//         const { accessToken, user } = data;
 
-        // Hide the login modal
-        const loginModal = document.getElementById("loginModal");
-        loginModal.hide();
-      }
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
-// Handling the login form submission
-const loginForm = document.getElementById("loginForm"); // Add this ID to your login form
-loginForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
+//         // Store the access token
+//         localStorage.setItem("accessToken", accessToken);
 
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+//         // Store user information in localStorage
+//         localStorage.setItem("userName", user.name);
+//         localStorage.setItem("userEmail", user.email);
 
-  try {
-    await login(email, password);
-    console.log("Logged in successfully");
-  } catch (error) {
-    console.error("Login failed:", error);
-  }
-});
+//         // Update the user profile in the navigation bar
+//         handleLoginSuccess();
 
-// After successful login
-function handleLoginSuccess() {
-  const userName = localStorage.getItem("userName");
-  const userEmail = localStorage.getItem("userEmail");
+//         // Hide the login modal
+//         const loginModal = document.getElementById("loginModal");
+//         loginModal.hide();
+//       }
+//     }
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+// // Handling the login form submission
+// const loginForm = document.getElementById("loginForm"); // Add this ID to your login form
+// loginForm.addEventListener("submit", async (event) => {
+//   event.preventDefault();
 
-  const userProfile = document.getElementById("userProfile");
-  userProfile.innerHTML = `${userName} <a href="#" id="logoutLink">Logout</a>`;
+//   const email = document.getElementById("email").value;
+//   const password = document.getElementById("password").value;
 
-  // Add a click event listener to the logout link
-  const logoutLink = document.getElementById("logoutLink");
-  logoutLink.addEventListener("click", handleLogout);
+//   try {
+//     await login(email, password);
+//     console.log("Logged in successfully");
+//   } catch (error) {
+//     console.error("Login failed:", error);
+//   }
+// });
 
-  // Hide the login button
-  const loginContainer = document.getElementById("loginContainer");
-  loginContainer.style.display = "none";
-}
+// // After successful login
+// function handleLoginSuccess() {
+//   const userName = localStorage.getItem("userName");
+//   const userEmail = localStorage.getItem("userEmail");
 
-// Logout handler
-function handleLogout() {
-  // Clear user data and update the navigation bar
-  localStorage.removeItem("accessToken");
-  const userProfile = document.getElementById("userProfile");
-  userProfile.innerHTML = ""; // Clear the user profile element
+//   const userProfile = document.getElementById("userProfile");
+//   userProfile.innerHTML = `${userName} <a href="#" id="logoutLink">Logout</a>`;
 
-  const loginContainer = document.getElementById("loginContainer");
-  loginContainer.style.display = "block";
-}
+//   // Add a click event listener to the logout link
+//   const logoutLink = document.getElementById("logoutLink");
+//   logoutLink.addEventListener("click", handleLogout);
 
-const filterBtn = document.getElementById("filterBtn");
-filterBtn.addEventListener("click", handleFilterBtnClick);
+//   // Hide the login button
+//   const loginContainer = document.getElementById("loginContainer");
+//   loginContainer.style.display = "none";
+// }
 
-function checkLoggedInStatus() {
-  const accessToken = localStorage.getItem("accessToken");
-  const loginContainer = document.getElementById("loginContainer");
-  const userProfile = document.getElementById("userProfile");
+// // Logout handler
+// function handleLogout() {
+//   // Clear user data and update the navigation bar
+//   localStorage.removeItem("accessToken");
+//   const userProfile = document.getElementById("userProfile");
+//   userProfile.innerHTML = ""; // Clear the user profile element
 
-  if (accessToken) {
-    // User is logged in
-    loginContainer.style.display = "none";
+//   const loginContainer = document.getElementById("loginContainer");
+//   loginContainer.style.display = "block";
+// }
 
-    const userName = localStorage.getItem("userName");
-    const userRole = localStorage.getItem("userRole");
-    userProfile.innerHTML = `${userName} <a href="#" id="logoutLink">Logout</a>`;
+// const filterBtn = document.getElementById("filterBtn");
+// filterBtn.addEventListener("click", handleFilterBtnClick);
 
-    // Add a click event listener to the logout link
-    const logoutLink = document.getElementById("logoutLink");
-    logoutLink.addEventListener("click", handleLogout);
-  } else {
-    // User is not logged in
-    userProfile.innerHTML = ""; // Clear the user profile element
-    loginContainer.style.display = "block";
-  }
-}
+// function checkLoggedInStatus() {
+//   const accessToken = localStorage.getItem("accessToken");
+//   const loginContainer = document.getElementById("loginContainer");
+//   const userProfile = document.getElementById("userProfile");
 
-// Call the function to check the initial status
-checkLoggedInStatus();
+//   if (accessToken) {
+//     // User is logged in
+//     loginContainer.style.display = "none";
+
+//     const userName = localStorage.getItem("userName");
+//     const userRole = localStorage.getItem("userRole");
+//     userProfile.innerHTML = `${userName} <a href="#" id="logoutLink">Logout</a>`;
+
+//     // Add a click event listener to the logout link
+//     const logoutLink = document.getElementById("logoutLink");
+//     logoutLink.addEventListener("click", handleLogout);
+//   } else {
+//     // User is not logged in
+//     userProfile.innerHTML = ""; // Clear the user profile element
+//     loginContainer.style.display = "block";
+//   }
+// }
+
+// // Call the function to check the initial status
+// checkLoggedInStatus();
+

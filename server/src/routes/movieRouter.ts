@@ -11,11 +11,22 @@ router.get("/movies", MovieController.getAll);
 //GET ONE
 router.get("/movies/:id", MovieController.getOne);
 
+
+//GET GENRES
+router.get("/genres", MovieController.getGenres);
+
+//GET YEARS
+router.get("/years", MovieController.getYears);
+
+//GET FILM DIRECTORS
+router.get("/directors", MovieController.getFilmDirectors);
+
+
 //POST
-router.post("/movies", MovieController.create);
+router.post("/movies", isAdmin, MovieController.create);
 
 //PUT
-router.put("/movies/:id", MovieController.update);
+router.put("/movies/:id", isAdmin, MovieController.update);
 
 //DELETE
 router.delete("/movies/:id", isAdmin, MovieController.delete);

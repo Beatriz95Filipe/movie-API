@@ -3,6 +3,7 @@ import { IRating, IRatingNumbers } from "../interfaces/RatingInterface.js";
 import MovieRepository from "../repositories/MovieRepository.js";
 import RatingModel from "../models/RatingModel.js";
 import { Types } from "mongoose";
+import MovieModel from "../models/MovieModel.js";
 
 class MovieService {
     async createMovie(movieData: IMovie) {
@@ -14,33 +15,40 @@ class MovieService {
         }
     }
 
-    async getAllMovies(page: number, limit: number, sortBy: string, sortOrder: string, filters: any) {
+    async getAllMovies(
+        page: number,
+        limit: number,
+        sortBy: string,
+        sortOrder: string,
+        titleFilter: string | undefined,
+        releaseDateFilter: string | undefined,
+        filmDirectorFilter: string[] | undefined,
+        genresFilter: string[] | undefined
+    ) {
         try {
             const sortParams: { [key: string]: "asc" | "desc" } = {
                 [sortBy]: sortOrder === "desc" ? "desc" : "asc"
             }
-            let totalMovies = 0;
+
             const defaultQuery: any = {};
 
-            for (const key in filters) {
-                if (filters.hasOwnProperty(key)) {
-                    const value = filters[key];
-                    if (key === "title") {
-                        defaultQuery[key] = { $regex: value, $options: "i" };
-                    } else if (key === "genres" && Array.isArray(value) && value.length > 0) {
-                        const validGenres = value.filter((genre: string) => genre.trim() !== "");
-                        if (validGenres.length > 0) {
-                            defaultQuery[key] = { $all: validGenres };
-                        }
-                    } else if (key === "year") {
-                        defaultQuery["releaseDate"] = {
-                            $gte: new Date(`${value}-01-01`),
-                            $lt: new Date(`${parseInt(value) + 1}-01-01`),
-                        }
-                    } else {
-                        defaultQuery[key] = value;
-                    }
-                }
+            if(titleFilter) {
+                defaultQuery["title"] = { $regex: titleFilter, $options: "i" };
+            }
+
+            if(releaseDateFilter) {
+                defaultQuery["releaseDate"] = {
+                    $gte: new Date(`${releaseDateFilter}-01-01`),
+                    $lt: new Date(`${parseInt(releaseDateFilter) + 1}-01-01`),
+                };
+            }
+
+            if (filmDirectorFilter && filmDirectorFilter.length > 0) {
+                defaultQuery["filmDirector"] = { $all: filmDirectorFilter };
+            }
+
+            if (genresFilter && genresFilter.length > 0) {
+                defaultQuery["genres"] = { $all: genresFilter };
             }
 
             const result = await MovieRepository.getAllMovies(defaultQuery, page, limit, sortParams);
@@ -48,7 +56,7 @@ class MovieService {
             const responseData = {
                 movies: result.movies,
                 currentPage: page,
-                totalPages: Math.ceil(result.totalMovies / limit)
+                totalPages: Math.ceil(result.totalMovies / limit),
             };
             return responseData;
         } catch (error) {
@@ -62,6 +70,36 @@ class MovieService {
             return movie;
         } catch (error) {
             throw new Error(`Movie not found for ${id}`);
+        }
+    }
+
+    //get genres
+    async getGenres() {
+        try {
+            const genres = await MovieModel.distinct("genres");
+            return genres;
+        } catch (error) {
+            throw new Error("Failed to get genres.");
+        }
+    }
+
+    //get years
+    async getYears() {
+        try {
+            const years = await MovieModel.distinct("releaseDate");
+            return years;
+        } catch (error) {
+            throw new Error("Failed to get years.");
+        }
+    }
+
+    //get film directors
+    async getFilmDirectors() {
+        try {
+            const directors = await MovieModel.distinct("filmDirector");
+            return directors;
+        } catch (error) {
+            throw new Error("Failed to get film directors.");
         }
     }
 

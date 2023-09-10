@@ -12,6 +12,7 @@ router.post(
   [
     check("name", "Name can't be empty").notEmpty(),
   ],
+  isAdmin,
   AuthController.createRole
 );
 

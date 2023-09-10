@@ -5,19 +5,28 @@ import ApiError from "../utils/ApiError.js";
 import MovieRepository from "../repositories/MovieRepository.js";
 import { IRating, IRatingNumbers } from "../interfaces/RatingInterface.js";
 import RatingModel from "../models/RatingModel.js";
+import FileService from "../services/FileService.js";
 
 class MovieController {
     //create movie - post
     async create(req: Request, res: Response, next: NextFunction) {
         try {
-            const { title, releaseDate, filmDirector, trailerLink, posterUrl, genres } = req.body;
+            const { title, releaseDate, filmDirector, trailerLink, genres } = req.body;
+            const moviePoster = req.files?.image;
+            console.log(moviePoster);
+
+            let posterUrl = "./../static/no-image.jpg";
+
+            if (moviePoster) {
+                posterUrl = await FileService.save(moviePoster);
+            }
 
             const newMovie = {
                 title,
                 releaseDate,
                 filmDirector,
                 trailerLink,
-                posterUrl,
+                posterUrl: posterUrl,
                 genres
             } as IMovie;
 
@@ -36,20 +45,34 @@ class MovieController {
             const limit = parseInt(req.query.limit as string) || 10;
             const sortBy = req.query.sortBy as string || "releaseDate";
             const sortOrder = req.query.sortOrder as string || "desc";
-            const filtersQuery = req.query.filters as string | undefined;
+            const titleFilter = req.query.title as string | undefined;
+            const releaseDateFilter = req.query.releaseDate as string | undefined;
+            const filmDirectorFilter = req.query.filmDirector as string[] | undefined;
+            const genresFilter = req.query.genres as string[] | undefined;
 
-            let filters: any = {};
+            const genres = await MovieService.getGenres();
+            const years = await MovieService.getYears();
+            const directors = await MovieService.getFilmDirectors();
 
-            if (filtersQuery) {
-                try {
-                    filters = JSON.parse(decodeURIComponent(filtersQuery));
-                } catch (error) {
-                    return next(ApiError.BadRequestError("Invalid filters JSON"));
-                }
+            const filterOptions = {
+                genres,
+                years,
+                directors
             }
 
-            const movies = await MovieService.getAllMovies(page, limit, sortBy, sortOrder, filters);
-            res.json(movies);
+            const movies = await MovieService.getAllMovies(
+                page,
+                limit,
+                sortBy,
+                sortOrder,
+                titleFilter,
+                releaseDateFilter,
+                filmDirectorFilter,
+                genresFilter
+            );
+
+            const response = {movies, filterOptions};
+            res.json(response);
         } catch (error) {
             next(error);
         }
@@ -65,7 +88,13 @@ class MovieController {
                 throw ApiError.NotFoundError(`Movie not found for ${id}`);
             }
 
-            res.status(200).json(movie);
+            const fullImageUrl = `${req.protocol}://${req.get("host")}/${movie?.posterUrl}`;
+            const movieWithImageUrl = {
+                ...movie?.toJSON(),
+                posterUrl: fullImageUrl,
+            }
+
+            res.status(200).json(movieWithImageUrl);
         } catch (error) {
             next(error);
         }
@@ -91,7 +120,13 @@ class MovieController {
     async update(req: Request, res: Response, next: NextFunction) {
         try {
             const { id } = req.params;
-            const { title, releaseDate, filmDirector, trailerLink, posterUrl, genres } = req.body;
+            const { title, releaseDate, filmDirector, trailerLink, genres } = req.body;
+            const moviePoster = req.files?.image;
+            let posterUrl = "./../static/no-image.jpg";
+
+            if (moviePoster) {
+                posterUrl = await FileService.save(moviePoster);
+            }
 
             const updateMovie = {
                 title,
@@ -108,6 +143,36 @@ class MovieController {
             }
 
             res.status(200).json(updatedMovie);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    //get genres
+    async getGenres(req: Request, res: Response, next: NextFunction) {
+        try {
+            const genres = await MovieService.getGenres();
+            res.status(200).json(genres);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    //get years
+    async getYears(req: Request, res: Response, next: NextFunction) {
+        try {
+            const years = await MovieService.getYears();
+            res.status(200).json(years);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    //get film directors
+    async getFilmDirectors(req: Request, res: Response, next: NextFunction) {
+        try {
+            const directors = await MovieService.getFilmDirectors();
+            res.status(200).json(directors);
         } catch (error) {
             next(error);
         }
