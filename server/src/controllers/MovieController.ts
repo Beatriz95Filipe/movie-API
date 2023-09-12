@@ -14,27 +14,16 @@ class MovieController {
         try {
             const { title, releaseDate, filmDirector, trailerLink, genres } = req.body;
             const moviePoster = req.files?.image;
-            // const posterUrl = req.body.posterUrl;
+            let finalPoster = "no-movie-image.png";
             console.log("movieposter", moviePoster);
-            // console.log("posterUrl", posterUrl);
+            console.log("finalposter", finalPoster);
 
-            // let finalPosterUrl = posterUrl || path.resolve("static", "no-movie-image.png");
-
-            // if (moviePoster) {
-            //     finalPosterUrl = await FileService.save(moviePoster);
-            // } else if (posterUrl && posterUrl.startsWith("http")) {
-            //     finalPosterUrl = await FileService.saveOnlineImage(posterUrl);
-            // }
-            // console.log("finalPosterUrl", finalPosterUrl);
+            if (moviePoster) {
+                finalPoster = await FileService.save(moviePoster);
+            }
 
             if (!title || !releaseDate || !filmDirector || !trailerLink || !genres) {
                 throw new Error("Missing required fields.");
-            }
-
-            let posterUrl = "./../static/no-movie-image.png";
-
-            if (moviePoster) {
-                posterUrl = await FileService.save(moviePoster);
             }
 
             const newMovie = {
@@ -42,7 +31,7 @@ class MovieController {
                 releaseDate,
                 filmDirector,
                 trailerLink,
-                posterUrl: posterUrl, //finalPosterUrl
+                posterUrl: finalPoster,
                 genres
             } as IMovie;
 
@@ -87,7 +76,10 @@ class MovieController {
                 filmDirectorFilter,
                 genresFilter
             );
-
+            for (let i = 0; i < movies.movies.length; i++) {
+                const fullImageUrl = `${req.protocol}://${req.get("host")}/${movies.movies[i]?.posterUrl}`;
+                movies.movies[i].posterUrl = fullImageUrl;
+            }
             const response = {movies, filterOptions};
             res.json(response);
         } catch (error) {
@@ -138,54 +130,44 @@ class MovieController {
         try {
             const { id } = req.params;
             const { title, releaseDate, filmDirector, trailerLink, genres } = req.body;
-            // let moviePoster = req.files?.image;
-            let posterUrl = req.body.posterUrl;
-            // console.log("movieposter", moviePoster);
-            // console.log("posterUrl", posterUrl);
+            const moviePoster = req.files?.image;
+            // let posterUrl = req.body.posterUrl;
+            console.log("movieposter", moviePoster);
 
-            // let finalPosterUrl = posterUrl || path.resolve("static", "no-movie-image.png");
+            const existingMovie: IMovie | null = await MovieRepository.getMovieById(id);
 
-            // if (moviePoster) {
-            //     finalPosterUrl = await FileService.save(moviePoster);
-            // } else if (posterUrl && posterUrl.startsWith("http")) {
-            //     finalPosterUrl = await FileService.saveOnlineImage(posterUrl);
-            // }
-            // console.log("finalPosterUrl", finalPosterUrl);
-
-            // let posterUrl;
-
-            // if (req.body.posterUrl) {
-            //     posterUrl = await FileService.save(req.body.posterUrl);
-            // } else {
-            //     posterUrl = "./../static/no-movie-image.png";
-            // }
-
-            // let posterUrl = "./../static/no-movie-image.png";
-
-            // if (moviePoster == undefined) {
-            //     posterUrl = await FileService.save(moviePoster);
-            // } else {
-            //     posterUrl = await FileService.save(moviePoster);
-            // }
-
-
-            const updateMovie = {
-                title,
-                releaseDate,
-                filmDirector,
-                trailerLink,
-                posterUrl: posterUrl, //finalPosterUrl
-                genres
-            } as IMovie;
-
-            // const savedPoster = await FileService.save(posterUrl);
-
-            const updatedMovie = await MovieRepository.updateMovie(id, updateMovie);
-            if (!updatedMovie) {
-                throw ApiError.NotFoundError(`Movie not found for ${id}`);
+            if (!existingMovie) {
+                res.status(404).json({message: "Movie not found"});
             }
 
-            res.status(200).json(updatedMovie);
+            if (existingMovie) {
+                if (existingMovie.posterUrl && existingMovie.posterUrl !== "no-movie-image.png") {
+                    await FileService.delete(existingMovie.posterUrl);
+                }
+
+                let finalPoster = "no-movie-image.png";
+                console.log("finalposter", finalPoster);
+
+                if (moviePoster) {
+                    finalPoster = await FileService.save(moviePoster);
+                }
+
+                const updateMovie = {
+                    title,
+                    releaseDate,
+                    filmDirector,
+                    trailerLink,
+                    posterUrl: finalPoster,
+                    genres
+                } as IMovie;
+
+                const updatedMovie = await MovieRepository.updateMovie(id, updateMovie);
+                if (!updatedMovie) {
+                    throw ApiError.NotFoundError(`Movie not found for ${id}`);
+                }
+
+                res.status(200).json(updatedMovie);
+            }
         } catch (error) {
             console.log("movieContrellerError update:", error);
             next(error);

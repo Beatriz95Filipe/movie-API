@@ -9,10 +9,6 @@ import FileService from "./FileService.js";
 class MovieService {
     async createMovie(movieData: IMovie) {
         try {
-            // const posterUrl = await FileService.saveOnlineImage(movieData.posterUrl); //see function to save online URL in FileService.ts
-            // movieData.posterUrl = posterUrl; //update posterUrl with saved image
-            // const posterUrl = await FileService.saveMoviePoster(movieData.posterUrl); //see function to save online URL in FileService.ts
-            // movieData.posterUrl = posterUrl; //update posterUrl with saved image
             const savedMovie = await MovieRepository.createMovie(movieData);
             return savedMovie;
         } catch (error) {

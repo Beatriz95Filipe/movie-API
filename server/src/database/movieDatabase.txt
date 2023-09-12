@@ -5,7 +5,7 @@
         "Stephen Chbosky"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=2vb2qrcPEEs",
-    "posterUrl": "https://xl.movieposterdb.com/12_08/2012/1659337/xl_1659337_d9cc42d3.jpg",
+    "posterUrl": "https://xl.movieposterdb.com/13_01/2012/1659337/xl_1659337_39d0615a.jpg?v=2023-08-29%2005:50:32",
     "genres": [
         "Drama",
         "Comedy",
@@ -23,7 +23,7 @@
         "Barry Jenkins"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=9NJj12tJzqc",
-    "posterUrl": "https://www.imdb.com/title/tt4975722/mediaviewer/rm1452607488/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/22_12/2016/4975722/xl_moonlight-movie-poster_4d7e7f1b.jpg?v=2023-06-09%2018:13:53",
     "genres": [
         "Drama"
     ],
@@ -39,7 +39,7 @@
         "Spike Jonze"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=dJTU48_yghs",
-    "posterUrl": "https://www.imdb.com/title/tt1798709/mediaviewer/rm1539299328/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/13_11/2013/1798709/xl_1798709_48f9f547.jpg?v=2023-09-10%2022:58:09",
     "genres": [
         "Sci-Fi",
         "Drama",
@@ -57,7 +57,7 @@
         "Woody Allen"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=4Ur7BmMYiIs",
-    "posterUrl": "https://www.imdb.com/title/tt0497465/mediaviewer/rm4225712640/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/08_07/2008/497465/xl_497465_8e9263ae.jpg",
     "genres": [
         "Comedy",
         "Drama",
@@ -75,7 +75,7 @@
         "Woody Allen"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=vOtHKwiLsGc",
-    "posterUrl": "https://www.imdb.com/title/tt0068555/mediaviewer/rm2362173185/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/13_03/1972/68555/xl_68555_03f3ee44.jpg?v=2023-09-02%2016:02:45",
     "genres": [
         "Comedy"
     ],
@@ -91,7 +91,7 @@
         "Clint Eastwood"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=XULIO67YIRA",
-    "posterUrl": "https://www.imdb.com/title/tt1616195/mediaviewer/rm624147712/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/11_10/2011/1616195/xl_1616195_03669240.jpg?v=2023-08-18%2006:31:18",
     "genres": [
         "Drama",
         "Biography",
@@ -109,7 +109,7 @@
         "Clint Eastwood"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=211tsGoram8",
-    "posterUrl": "https://www.imdb.com/title/tt1057500/mediaviewer/rm469405184/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/09_12/2009/1057500/xl_1057500_95170582.jpg?v=2023-08-18%2006:46:17",
     "genres": [
         "Action",
         "Adventure",
@@ -127,7 +127,7 @@
         "Francis Ford Coppola"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=sY1S34973zA",
-    "posterUrl": "https://www.imdb.com/title/tt0068646/mediaviewer/rm2372520961/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/22_12/2006/442674/xl_the-godfather-movie-poster_51f17e6f.jpg?v=2023-09-07%2001:28:41",
     "genres": [
         "Crime",
         "Drama"
@@ -144,7 +144,7 @@
         "Clint Eastwood"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=Y_0088KD1_U",
-    "posterUrl": "https://www.imdb.com/title/tt1205489/mediaviewer/rm3054015488/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/09_02/2008/1205489/xl_1205489_7df8e3b1.jpg?v=2023-07-09%2018:21:58",
     "genres": [
         "Drama"
     ],
@@ -160,7 +160,7 @@
         "Stephen Daldry"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=phCEwSmHpOE",
-    "posterUrl": "https://www.imdb.com/title/tt0249462/mediaviewer/rm815140608/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/09_09/2000/249462/xl_249462_634bf149.jpg?v=2023-07-12%2015:54:21",
     "genres": [
         "Drama",
         "Music"
@@ -177,7 +177,7 @@
         "Robert Zemeckis"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=bLvqoHBptjg",
-    "posterUrl": "https://www.imdb.com/title/tt0109830/mediaviewer/rm1954748672/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/20_08/1994/109830/xl_109830_439ed30c.jpg?v=2023-09-07%2020:12:56",
     "genres": [
         "Drama",
         "Romance"
@@ -194,7 +194,7 @@
         "Frank Darabont"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=NmzuHjWmXOc",
-    "posterUrl": "https://www.imdb.com/title/tt0111161/mediaviewer/rm1690056449/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/05_02/1994/0111161/xl_7266_0111161_d2436dce.jpg?v=2023-01-28%2000:11:44",
     "genres": [
         "Drama"
     ],
@@ -210,7 +210,7 @@
         "Quentin Tarantino"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=s7EdQ4FqbhY",
-    "posterUrl": "https://www.imdb.com/title/tt0110912/mediaviewer/rm1959546112/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/08_04/1994/110912/xl_110912_dd621f72.jpg?v=2023-08-25%2022:49:02",
     "genres": [
         "Crime",
         "Drama"
@@ -228,7 +228,7 @@
         "Lilly Wachowski"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=m8e-FF8MsqU",
-    "posterUrl": "https://www.imdb.com/title/tt0133093/mediaviewer/rm525547776/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/21_08/1999/133093/xl_133093_1676007c.jpg?v=2023-08-25%2001:12:31",
     "genres": [
         "Sci-Fi",
         "Action"
@@ -245,7 +245,7 @@
         "Chris Columbus"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=VyHV0BRtdxo",
-    "posterUrl": "https://www.imdb.com/title/tt0241527/mediaviewer/rm2105413120/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/13_02/2001/241527/xl_241527_da927a3d.jpg?v=2023-09-08%2006:43:51",
     "genres": [
         "Fantasy",
         "Adventure"
@@ -262,7 +262,7 @@
         "Peter Jackson"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=V75dMMIW2B4",
-    "posterUrl": "https://www.imdb.com/title/tt0120737/mediaviewer/rm3592958976/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/21_10/2001/120737/xl_120737_68837600.jpg?v=2023-08-10%2002:15:45",
     "genres": [
         "Fantasy",
         "Adventure"
@@ -279,7 +279,7 @@
         "Chris Columbus"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=1bq0qff4iF8",
-    "posterUrl": "https://www.imdb.com/title/tt0295297/mediaviewer/rm3790637825/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/11_08/2002/295297/xl_295297_6be2c5d1.jpg?v=2023-09-08%2014:48:03",
     "genres": [
         "Fantasy",
         "Adventure"
@@ -296,7 +296,7 @@
         "Christopher Nolan"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=EXeTwQWrcwY",
-    "posterUrl": "https://www.imdb.com/title/tt0468569/mediaviewer/rm4023877632/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/11_04/2008/468569/xl_468569_87203f5c.jpg?v=2023-08-21%2021:21:11",
     "genres": [
         "Action",
         "Crime"
@@ -313,7 +313,7 @@
         "James Cameron"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=5PSNL1qE6VY",
-    "posterUrl": "https://www.imdb.com/title/tt0499549/mediaviewer/rm2864126209/?ref_=tt_ov_i",
+    "posterUrl": https://xl.movieposterdb.com/09_08/2009/499549/xl_499549_cd69e2ea.jpg?v=2023-08-11%2020:21:58",
     "genres": [
         "Sci-Fi",
         "Adventure"
@@ -330,7 +330,7 @@
         "Christopher Nolan"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=zSWdZVtXT7E",
-    "posterUrl": "https://www.imdb.com/title/tt0816692/mediaviewer/rm4043724800/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/14_09/2014/816692/xl_816692_593eaeff.jpg?v=2023-09-08%2021:23:46",
     "genres": [
         "Sci-Fi",
         "Adventure",

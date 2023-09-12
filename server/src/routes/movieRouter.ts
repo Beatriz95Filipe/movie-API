@@ -26,7 +26,7 @@ router.get("/directors", MovieController.getFilmDirectors);
 router.post("/movies", isAdmin, MovieController.create);
 
 //PUT
-router.put("/movies/:id", MovieController.update);
+router.put("/movies/:id", isAdmin, MovieController.update);
 
 //DELETE
 router.delete("/movies/:id", isAdmin, MovieController.delete);
