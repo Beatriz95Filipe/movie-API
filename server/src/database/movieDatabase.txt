@@ -5,7 +5,7 @@
         "Stephen Chbosky"
     ],
     "trailerLink": "https://www.youtube.com/watch?v=2vb2qrcPEEs",
-    "posterUrl": "https://www.imdb.com/title/tt1659337/mediaviewer/rm2134748161/?ref_=tt_ov_i",
+    "posterUrl": "https://xl.movieposterdb.com/12_08/2012/1659337/xl_1659337_d9cc42d3.jpg",
     "genres": [
         "Drama",
         "Comedy",

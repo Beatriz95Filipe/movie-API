@@ -507,6 +507,10 @@ button.filter_btn {
   cursor: pointer;
 }
 
+img {
+  max-width: 150px;
+}
+
 body {
   background-color: #eeddb4;
 }

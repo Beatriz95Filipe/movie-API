@@ -4,13 +4,19 @@ import MovieRepository from "../repositories/MovieRepository.js";
 import RatingModel from "../models/RatingModel.js";
 import { Types } from "mongoose";
 import MovieModel from "../models/MovieModel.js";
+import FileService from "./FileService.js";
 
 class MovieService {
     async createMovie(movieData: IMovie) {
         try {
+            // const posterUrl = await FileService.saveOnlineImage(movieData.posterUrl); //see function to save online URL in FileService.ts
+            // movieData.posterUrl = posterUrl; //update posterUrl with saved image
+            // const posterUrl = await FileService.saveMoviePoster(movieData.posterUrl); //see function to save online URL in FileService.ts
+            // movieData.posterUrl = posterUrl; //update posterUrl with saved image
             const savedMovie = await MovieRepository.createMovie(movieData);
             return savedMovie;
         } catch (error) {
+            console.log("movieServiceError:", error);
             throw new Error("Failed to create movie.");
         }
     }

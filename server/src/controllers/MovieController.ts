@@ -6,6 +6,7 @@ import MovieRepository from "../repositories/MovieRepository.js";
 import { IRating, IRatingNumbers } from "../interfaces/RatingInterface.js";
 import RatingModel from "../models/RatingModel.js";
 import FileService from "../services/FileService.js";
+import path from 'path';
 
 class MovieController {
     //create movie - post
@@ -13,9 +14,24 @@ class MovieController {
         try {
             const { title, releaseDate, filmDirector, trailerLink, genres } = req.body;
             const moviePoster = req.files?.image;
-            console.log(moviePoster);
+            // const posterUrl = req.body.posterUrl;
+            console.log("movieposter", moviePoster);
+            // console.log("posterUrl", posterUrl);
 
-            let posterUrl = "./../static/no-image.jpg";
+            // let finalPosterUrl = posterUrl || path.resolve("static", "no-movie-image.png");
+
+            // if (moviePoster) {
+            //     finalPosterUrl = await FileService.save(moviePoster);
+            // } else if (posterUrl && posterUrl.startsWith("http")) {
+            //     finalPosterUrl = await FileService.saveOnlineImage(posterUrl);
+            // }
+            // console.log("finalPosterUrl", finalPosterUrl);
+
+            if (!title || !releaseDate || !filmDirector || !trailerLink || !genres) {
+                throw new Error("Missing required fields.");
+            }
+
+            let posterUrl = "./../static/no-movie-image.png";
 
             if (moviePoster) {
                 posterUrl = await FileService.save(moviePoster);
@@ -26,7 +42,7 @@ class MovieController {
                 releaseDate,
                 filmDirector,
                 trailerLink,
-                posterUrl: posterUrl,
+                posterUrl: posterUrl, //finalPosterUrl
                 genres
             } as IMovie;
 
@@ -34,6 +50,7 @@ class MovieController {
 
             res.status(201).json(savedMovie);
         } catch (error) {
+            console.log("movieContrellerError create:", error);
             next(error);
         }
     }
@@ -42,7 +59,7 @@ class MovieController {
     async getAll(req: Request, res: Response, next: NextFunction) {
         try {
             const page = parseInt(req.query.page as string) || 1;
-            const limit = parseInt(req.query.limit as string) || 10;
+            const limit = parseInt(req.query.limit as string) || 12;
             const sortBy = req.query.sortBy as string || "releaseDate";
             const sortOrder = req.query.sortOrder as string || "desc";
             const titleFilter = req.query.title as string | undefined;
@@ -121,21 +138,47 @@ class MovieController {
         try {
             const { id } = req.params;
             const { title, releaseDate, filmDirector, trailerLink, genres } = req.body;
-            const moviePoster = req.files?.image;
-            let posterUrl = "./../static/no-image.jpg";
+            // let moviePoster = req.files?.image;
+            let posterUrl = req.body.posterUrl;
+            // console.log("movieposter", moviePoster);
+            // console.log("posterUrl", posterUrl);
 
-            if (moviePoster) {
-                posterUrl = await FileService.save(moviePoster);
-            }
+            // let finalPosterUrl = posterUrl || path.resolve("static", "no-movie-image.png");
+
+            // if (moviePoster) {
+            //     finalPosterUrl = await FileService.save(moviePoster);
+            // } else if (posterUrl && posterUrl.startsWith("http")) {
+            //     finalPosterUrl = await FileService.saveOnlineImage(posterUrl);
+            // }
+            // console.log("finalPosterUrl", finalPosterUrl);
+
+            // let posterUrl;
+
+            // if (req.body.posterUrl) {
+            //     posterUrl = await FileService.save(req.body.posterUrl);
+            // } else {
+            //     posterUrl = "./../static/no-movie-image.png";
+            // }
+
+            // let posterUrl = "./../static/no-movie-image.png";
+
+            // if (moviePoster == undefined) {
+            //     posterUrl = await FileService.save(moviePoster);
+            // } else {
+            //     posterUrl = await FileService.save(moviePoster);
+            // }
+
 
             const updateMovie = {
                 title,
                 releaseDate,
                 filmDirector,
                 trailerLink,
-                posterUrl,
+                posterUrl: posterUrl, //finalPosterUrl
                 genres
             } as IMovie;
+
+            // const savedPoster = await FileService.save(posterUrl);
 
             const updatedMovie = await MovieRepository.updateMovie(id, updateMovie);
             if (!updatedMovie) {
@@ -144,6 +187,7 @@ class MovieController {
 
             res.status(200).json(updatedMovie);
         } catch (error) {
+            console.log("movieContrellerError update:", error);
             next(error);
         }
     }
