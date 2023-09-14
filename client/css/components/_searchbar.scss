@@ -5,6 +5,7 @@
 
 .searchbar {
     @include flex(center, center);
+    flex-direction: column;
     padding: 60px 20px 40px;
     background-color: $bg-dark-bege;
     input{
@@ -17,9 +18,6 @@
 }
 
 .searchResultItem{
-    @include flex(flex-end, center);
-    img{
-        width: 5%;
-        padding: 5px;
-    }
+    @include flex(center, center);
+    margin-top: 15px;
 }

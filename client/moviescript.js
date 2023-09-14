@@ -1,182 +1,46 @@
 const body = document.getElementsByTagName("body");
 
-//get filter options from movies specifics
-function populateFiltersOptions() {
-  const genreSelect = document.getElementById("genre");
-  const yearSelect = document.getElementById("year");
-  const directorSelect = document.getElementById("director");
+const movieUrlParams = new URLSearchParams (window.location.search);
+const clickedMovie = movieUrlParams.get("id");
+console.log(clickedMovie);
 
-  fetch("http://localhost:5775/api/genres")
-    .then((response) => response.json())
-    .then((result) => {
-      //console.log("Genres:", result);
-      genreSelect.innerHTML = '<option value="all">All genres</option>';
-
-      result.forEach((genre) => {
-        genreSelect.insertAdjacentHTML(
-          "beforeend",
-          `<option value="${genre}">${genre}</option>`,
-        );
-      });
-    })
-    .catch((error) => console.log("Error genres: ", error));
-
-  fetch("http://localhost:5775/api/years")
-    .then((response) => response.json())
-    .then((result) => {
-      //console.log("Years:", result);
-      yearSelect.innerHTML = '<option value="all">All Realease Dates</option>';
-
-      result.forEach((year) => {
-        const onlyYear = parseInt(year.slice(0, 4));
-        yearSelect.insertAdjacentHTML(
-          "beforeend",
-          `<option value="${onlyYear}">${onlyYear}</option>`,
-        );
-      });
-    })
-    .catch((error) => console.log("Error years: ", error));
-
-  fetch("http://localhost:5775/api/directors")
-  .then((response) => response.json())
-  .then((result) => {
-    //console.log("Directors:", result);
-    directorSelect.innerHTML = '<option value="all">All Film Directors</option>';
-
-    result.forEach((director) => {
-      directorSelect.insertAdjacentHTML(
-        "beforeend",
-        `<option value="${director}">${director}</option>`,
-      );
-    });
-  })
-  .catch((error) => console.log("Error film directors: ", error));
-
-  handleFilterBtnClick();
+async function getMovie(clickedMovie) {
+  try {
+    const response = await fetch("http://localhost:5775/api/movies/"+clickedMovie);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const movieInfo = await response.json();
+    console.log("movieinfo ", movieInfo);
+    return movieInfo;
+  } catch (error) {
+    console.error("Error fetching movie data:", error);
+  }
 }
 
-populateFiltersOptions();
+const moviesCard = document.getElementById("movie_card");
+moviesCard.innerHTML = "";
 
-//create moviecard
-function createMovieCard(movie){
+//create clicked moviecard
+async function createClickedMovieCard(){
+  let movie = await getMovie(clickedMovie);
+  console.log(movie);
   const onlyYear = parseInt(movie.releaseDate.slice(0, 4));
-  return `
-  <div class="col-lg-4 movie_card">
-    <div class="card-body">
-      <h5 class="card-title">${movie.title}</h5>
-      <p class="card-text">${onlyYear}, ${movie.filmDirector.join(', ')}</p>
-      <p class="card-text">${movie.genres.join(', ')}</p>
-      <a class="card-img" href="${movie.trailerLink}">
-          <img src="${movie.posterUrl}" alt="movie-poster">
-      </a>
-      <button class="btn delete-btn" data-id="${movie._id}">Delete</button>
-    </div>
+  console.log(movie.trailerLink);
+  moviesCard.innerHTML = `
+  <div class="col-lg-4 movie_card_trailer">
+    <a class="card-img" href="${movie.trailerLink}">
+      <img src="${movie.posterUrl}" alt="movie-poster">
+    </a>
+  </div>
+  <div class="col-lg-8 movie_card_info">
+    <h2>${movie.title}</h2>
+    <h3>${onlyYear}, ${movie.filmDirector.join(', ')}</h3>
+    <h3>${movie.genres.join(', ')}</h3>
   </div>`;
 }
 
-//event listener to filter btn
-const filterBtn = document.getElementById("filterBtn");
-filterBtn.addEventListener("click", handleFilterBtnClick);
-
-function handleFilterBtnClick() {
-  const genre = document.getElementById("genre").value;
-  const year = document.getElementById("year").value;
-  const director = document.getElementById("director").value;
-
-  // console.log("Genre:", genre);
-  // console.log("Year:", year);
-  // console.log("Director:", director);
-
-  const queryParams = new URLSearchParams({
-    genre,
-    year,
-    director
-  }).toString();
-  console.log("params:", queryParams);
-
-  const url = `http://localhost:5775/api/movies?filters=${queryParams}`;
-
-  const moviesContainer = document.getElementById("movies_container");
-  moviesContainer.innerHTML = "";
-
-  fetch(url)
-  .then((response) => response.json())
-  .then((data) => {
-    const moviesArray = data.movies.movies;
-    //console.log(moviesArray);
-    if(moviesArray.length == 0) {productContainer.innerHTML = "<p style='text-align:center'>No products found... :(</p>"};
-    moviesArray.forEach((movie) => {
-      const movieCard = createMovieCard(movie);
-      moviesContainer.innerHTML += movieCard;
-    });
-  })
-  .catch((error) => console.error("Error fetching movies: ", error));
-
-      // const deletedBtns = document.querySelectorAll(".delete-btn");
-      // deletedBtns.forEach((deletedBtn) => {
-      //     deletedBtn.addEventListener("click", handleDeleteProduct);
-      // });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  createSearchBar();
-});
-
-//search bar
-async function createSearchBar() {
-  try{
-    const response = await fetch("http://localhost:5775/api/movies?fetchAll=true");
-    if(!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const movieData = await response.json();
-    console.log(movieData);
-
-    const moviesArray = movieData.movies.movies;
-    console.log("movies array ", moviesArray);
-
-    let searchMoviesInput = document.getElementById("searchMoviesInput");
-    let searchResultsContainer = document.getElementById("searchResults");
-
-    searchMoviesInput.onkeyup = (searchInput) => {
-        let searchedMovie = searchInput.target.value.toLowerCase();
-        let matchingMovies = moviesArray.filter((movie) => {
-          let movieTitleMatch = movie.title.toLowerCase().includes(searchedMovie);
-          let movieDirectorMatch = movie.filmDirector.join(', ').toLowerCase().includes(searchedMovie);
-          //console.log(movieTitleMatch, movieDirectorMatch);
-          return movieTitleMatch || movieDirectorMatch;
-        });
-
-        if (searchedMovie === "") {
-          searchResultsContainer.innerHTML = "";
-        } else {
-          displaySearchResults(matchingMovies, searchedMovie);
-        }
-    }
-
-    const displaySearchResults = (matchingMovies, searchedMovie) => {
-      searchResultsContainer.innerHTML = "";
-
-      if (matchingMovies.length === 0 && searchedMovie.length > 0) {
-        searchResultsContainer.innerHTML +=
-          `<div class="searchResultItem">
-            <p>It seems we can't find what you are looking for...</p>
-          </div>`;
-      } else {
-        matchingMovies.forEach((movie) => {
-          searchResultsContainer.innerHTML +=
-            `<div class="searchResultItem">
-              <a class="card-img" href="./moviepage.html?id=${movie._id}">
-                <p>${movie.title}</p>
-              </a>
-            </div>`;
-          });
-      }
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
+createClickedMovieCard();
 
 
 const loginBtn = document.getElementById("loginBtn");

@@ -10,16 +10,39 @@
     <title>Movie</title>
 </head>
 <body>
-    <section class="container movie_card">
+    <nav class="navbar container--fluid">
+        <a class="navbar_logo" href="index.html">
+            <img src="assets/movie-logo.png" alt="logo">
+        </a>
+        <button class="login_btn" id="loginBtn">Login</button>
+        <div id="loginModal" class="modal">
+            <div class="modal_content">
+                <span class="close">&times;</span>
+                <h2>Login or Register</h2>
+                <form action="" id="loginForm">
+                    <input type="email" placeholder="Email" id="loginEmail">
+                    <input type="password" placeholder="Password" id="loginPass">
+                    <button type="submit" id="loginBtn">Enter your account</button>
+                </form>
+                <form action="" id="registerForm">
+                    <p>Don't have an account?</p>
+                    <input type="text" placeholder="Name" id="registerName">
+                    <input type="email" placeholder="Email" id="registerEmail">
+                    <input type="password" placeholder="Password" id="registerPass">
+                    <button type="submit" id="registerBtn">Register your account</button>
+                </form>
+                <p>Already have an account? <a href="#" id="toggleForms">Login</a></p>
+            </div>
+        </div>
+    </nav>
+    <section class="container movie_card" id="movie_card">
         <div class="col-lg-4 movie_card_trailer">
-            <video class="movie_video" muted autoplay loop>
-                <source src="https://youtu.be/ur1B_f1FXZ4">
-            </video>
+            <video src=""></video>
         </div>
         <div class="col-lg-8 movie_card_info">
             <h2>movie title</h2>
             <h3>year, film director</h3>
-            <p>genres</p>
+            <h3>genres</h3>
         </div>
     </section>
     <section class="container movie_rating">
@@ -32,6 +55,6 @@
             <button class="rate_btn" id="rateBtn" type="submit">Send review</button>
         </form>
     </section>
-    <script src="script.js"></script>
+    <script src="moviescript.js"></script>
 </body>
 </html>

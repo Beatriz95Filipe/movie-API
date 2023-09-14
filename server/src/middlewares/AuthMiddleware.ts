@@ -37,11 +37,18 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
 
 
 function isAdmin(req: Request, res: Response, next: NextFunction) {
-  const user = req.user;
-  if (user.roles.includes("64f8e7589f2a3c538298b6f4")) {
-    next(); // user is ADMIN, user can delete
-  } else {
-    next(ApiError.ForbiddenError("Access denied. User is not an admin."));
+  try {
+    authMiddleware(req, res, () => {
+      const user = req.user;
+      console.log(user);
+      if (user.roles.includes("64f8e7589f2a3c538298b6f4")) {
+        next(); // user is ADMIN, user can make CRUD operations
+      } else {
+        next(ApiError.ForbiddenError("Access denied. User is not an admin."));
+      }
+    });
+  } catch (error) {
+    next(ApiError.UnauthorizedError("Invalid Bearer token"));
   }
 }
 

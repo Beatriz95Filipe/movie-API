@@ -47,8 +47,9 @@ class MovieController {
     //get all
     async getAll(req: Request, res: Response, next: NextFunction) {
         try {
+            const fetchAll = req.query.fetchAll === "true"; //fetch all movies to searchBar
             const page = parseInt(req.query.page as string) || 1;
-            const limit = parseInt(req.query.limit as string) || 12;
+            let limit = parseInt(req.query.limit as string) || 12;
             const sortBy = req.query.sortBy as string || "releaseDate";
             const sortOrder = req.query.sortOrder as string || "desc";
             const titleFilter = req.query.title as string | undefined;
@@ -66,16 +67,32 @@ class MovieController {
                 directors
             }
 
-            const movies = await MovieService.getAllMovies(
-                page,
-                limit,
-                sortBy,
-                sortOrder,
-                titleFilter,
-                releaseDateFilter,
-                filmDirectorFilter,
-                genresFilter
-            );
+            let movies;
+
+            if(fetchAll){
+                movies = await MovieService.getAllMovies(
+                    page,
+                    limit = parseInt(req.query.limit as string) || 900,
+                    sortBy,
+                    sortOrder,
+                    titleFilter,
+                    releaseDateFilter,
+                    filmDirectorFilter,
+                    genresFilter
+                );
+            } else {
+                movies = await MovieService.getAllMovies(
+                    page,
+                    limit,
+                    sortBy,
+                    sortOrder,
+                    titleFilter,
+                    releaseDateFilter,
+                    filmDirectorFilter,
+                    genresFilter
+                );
+            }
+
             for (let i = 0; i < movies.movies.length; i++) {
                 const fullImageUrl = `${req.protocol}://${req.get("host")}/${movies.movies[i]?.posterUrl}`;
                 movies.movies[i].posterUrl = fullImageUrl;
