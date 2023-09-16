@@ -3,7 +3,7 @@
 @import "../parcials/mixins";
 
 
-.search_filters {
+.search_filters, .pagination {
     background-color: $bg-dark-bege;
     padding: 20px;
 }
@@ -26,4 +26,17 @@
 .apply_filters {
     @include flex(center, center);
     margin-top: 40px;
+}
+
+.pagination {
+    @include flex(center, center);
+    flex-wrap: nowrap;
+    margin-top: 20px;
+	select, option {
+        background: none;
+        border: none;
+        outline: none;
+        padding: 8px;
+        width: 50px;
+    }
 }

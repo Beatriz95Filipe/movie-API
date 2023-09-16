@@ -53,8 +53,8 @@ class MovieController {
             const sortBy = req.query.sortBy as string || "releaseDate";
             const sortOrder = req.query.sortOrder as string || "desc";
             const titleFilter = req.query.title as string | undefined;
-            const releaseDateFilter = req.query.releaseDate as string | undefined;
-            const filmDirectorFilter = req.query.filmDirector as string[] | undefined;
+            const releaseDateFilter = req.query.year as string | undefined;
+            const filmDirectorFilter = req.query.director as string[] | undefined;
             const genresFilter = req.query.genres as string[] | undefined;
 
             const genres = await MovieService.getGenres();

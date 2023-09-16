@@ -18,8 +18,8 @@ async function getMovie(clickedMovie) {
   }
 }
 
-const moviesCard = document.getElementById("movie_card");
-moviesCard.innerHTML = "";
+const movieCardInfo = document.getElementById("movie_card_info");
+movieCardInfo.innerHTML = "";
 
 //create clicked moviecard
 async function createClickedMovieCard(){
@@ -27,17 +27,17 @@ async function createClickedMovieCard(){
   console.log(movie);
   const onlyYear = parseInt(movie.releaseDate.slice(0, 4));
   console.log(movie.trailerLink);
-  moviesCard.innerHTML = `
-  <div class="col-lg-4 movie_card_trailer">
-    <a class="card-img" href="${movie.trailerLink}">
-      <img src="${movie.posterUrl}" alt="movie-poster">
-    </a>
-  </div>
-  <div class="col-lg-8 movie_card_info">
-    <h2>${movie.title}</h2>
-    <h3>${onlyYear}, ${movie.filmDirector.join(', ')}</h3>
-    <h3>${movie.genres.join(', ')}</h3>
-  </div>`;
+  movieCardInfo.innerHTML = `
+    <div class="movie-img">
+      <a href="${movie.trailerLink}" target="_blank">
+        <img src="${movie.posterUrl}" alt="movie-poster">
+      </a>
+    </div>
+    <div class="movie-info">
+      <h2>${movie.title}</h2>
+      <h3>${onlyYear}, ${movie.filmDirector.join(', ')}</h3>
+      <h3>${movie.genres.join(', ')}</h3>
+    </div>`;
 }
 
 createClickedMovieCard();

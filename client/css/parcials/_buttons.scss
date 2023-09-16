@@ -25,3 +25,24 @@
         box-shadow: 0 5px 5px 0px $bg-light-wine;
     }
 }
+
+.delete_btn, .edit_btn {
+    background-color:$p-color-wine;
+    border: none;
+    padding: 8px;
+    width: 55px;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.rate_btn {
+    background-color: $bg-light-bege;
+    border: none;
+    padding: 8px;
+    margin: 20px;
+    &:hover{
+        cursor: pointer;
+        box-shadow: 0 3px 5px 0px $bg-light-wine;
+    }
+}

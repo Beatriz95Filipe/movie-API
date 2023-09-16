@@ -36,24 +36,29 @@
         </div>
     </nav>
     <section class="container movie_card" id="movie_card">
-        <div class="col-lg-4 movie_card_trailer">
-            <video src=""></video>
-        </div>
-        <div class="col-lg-8 movie_card_info">
+        <div class="col-lg-8 movie_card_info" id="movie_card_info">
+            <img src="" alt="">
             <h2>movie title</h2>
             <h3>year, film director</h3>
             <h3>genres</h3>
         </div>
-    </section>
-    <section class="container movie_rating">
-        <img src="./assets/movie-rating.png" alt="rating">
-        <form id="rating" class="rating" action="">
-            <div class="rating_review">
-                <input type="text" placeholder="Give us your review about this movie" name="commentField">
-                <select class="rating_select" name="rateSelect" id="rateSelect"></select>
-            </div>
-            <button class="rate_btn" id="rateBtn" type="submit">Send review</button>
-        </form>
+        <div class="col-lg-4 movie_card_rating">
+            <img src="./assets/movie-rating.png" alt="rating">
+            <form id="rating" class="rating" action="">
+                <div class="rating_review">
+                    <label for="rateSelect" class="filter_label">Rate this movie</label>
+                    <select class="rating_select" id="rateSelect" name="rateSelect">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <input type="text" placeholder="Give us your review about this movie" name="commentField">
+                </div>
+                <button class="rate_btn" id="rateBtn" type="submit">Send review</button>
+            </form>
+        </div>
     </section>
     <script src="moviescript.js"></script>
 </body>

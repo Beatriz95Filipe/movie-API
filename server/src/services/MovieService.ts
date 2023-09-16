@@ -38,21 +38,21 @@ class MovieService {
                 defaultQuery["title"] = { $regex: titleFilter, $options: "i" };
             }
 
-            if(releaseDateFilter) {
+            if(releaseDateFilter && releaseDateFilter != "all") {
                 defaultQuery["releaseDate"] = {
                     $gte: new Date(`${releaseDateFilter}-01-01`),
                     $lt: new Date(`${parseInt(releaseDateFilter) + 1}-01-01`),
                 };
             }
 
-            if (filmDirectorFilter && filmDirectorFilter.length > 0) {
+            if (filmDirectorFilter  && filmDirectorFilter.length > 0 && filmDirectorFilter.toString() != "all") {
                 defaultQuery["filmDirector"] = { $all: filmDirectorFilter };
             }
 
-            if (genresFilter && genresFilter.length > 0) {
+            if (genresFilter && genresFilter.length > 0 && genresFilter.toString() != "all") {
                 defaultQuery["genres"] = { $all: genresFilter };
             }
-
+            console.log(defaultQuery)
             const result = await MovieRepository.getAllMovies(defaultQuery, page, limit, sortParams);
 
             const responseData = {

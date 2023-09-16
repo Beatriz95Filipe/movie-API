@@ -61,40 +61,50 @@ populateFiltersOptions();
 function createMovieCard(movie){
   const onlyYear = parseInt(movie.releaseDate.slice(0, 4));
   return `
-  <div class="col-lg-4 movie_card">
+  <div class="col-lg-4 movie_card_thumbnail">
     <div class="card-body">
-      <h5 class="card-title">${movie.title}</h5>
+      <a href="./moviepage.html?id=${movie._id}">
+        <p class="card-title">${movie.title}</p>
+      </a>
       <p class="card-text">${onlyYear}, ${movie.filmDirector.join(', ')}</p>
       <p class="card-text">${movie.genres.join(', ')}</p>
-      <a class="card-img" href="${movie.trailerLink}">
-          <img src="${movie.posterUrl}" alt="movie-poster">
-      </a>
-      <button class="btn delete-btn" data-id="${movie._id}">Delete</button>
+    </div>
+    <div class="card-img">
+      <img src="${movie.posterUrl}" alt="movie-poster">
+    </div>
+    <div class="admin_crud">
+      <button class="btn edit_btn" data-id="${movie._id}">Edit</button>
+      <button class="btn delete_btn" data-id="${movie._id}">Delete</button>
     </div>
   </div>`;
 }
+
+let genres = "";
+let year = "";
+let director = "";
 
 //event listener to filter btn
 const filterBtn = document.getElementById("filterBtn");
 filterBtn.addEventListener("click", handleFilterBtnClick);
 
 function handleFilterBtnClick() {
-  const genre = document.getElementById("genre").value;
+  const genres = document.getElementById("genre").value;
   const year = document.getElementById("year").value;
   const director = document.getElementById("director").value;
 
-  // console.log("Genre:", genre);
-  // console.log("Year:", year);
-  // console.log("Director:", director);
+  console.log("Genre:", genres);
+  console.log("Year:", year);
+  console.log("Director:", director);
 
   const queryParams = new URLSearchParams({
-    genre,
+    genres,
     year,
     director
   }).toString();
   console.log("params:", queryParams);
 
-  const url = `http://localhost:5775/api/movies?filters=${queryParams}`;
+  const url = `http://localhost:5775/api/movies?${queryParams}`;
+  console.log(url);
 
   const moviesContainer = document.getElementById("movies_container");
   moviesContainer.innerHTML = "";
@@ -103,8 +113,10 @@ function handleFilterBtnClick() {
   .then((response) => response.json())
   .then((data) => {
     const moviesArray = data.movies.movies;
-    //console.log(moviesArray);
-    if(moviesArray.length == 0) {productContainer.innerHTML = "<p style='text-align:center'>No products found... :(</p>"};
+    console.log(moviesArray);
+    if(moviesArray.length == 0) {
+      productContainer.innerHTML = "<p style='text-align:center'>No products found... :(</p>"
+    };
     moviesArray.forEach((movie) => {
       const movieCard = createMovieCard(movie);
       moviesContainer.innerHTML += movieCard;
@@ -116,6 +128,35 @@ function handleFilterBtnClick() {
       // deletedBtns.forEach((deletedBtn) => {
       //     deletedBtn.addEventListener("click", handleDeleteProduct);
       // });
+}
+
+//pagination
+const pagesSelect = document.getElementById("pages");
+pagesSelect.addEventListener("change", handlePageNavigation);
+
+//handle page navigation when select changes
+function handlePageNavigation() {
+  const selectedPage = parseInt(pagesSelect.value);
+  const queryParams = new URLSearchParams({
+      page: selectedPage,
+      genres,
+      year,
+      director,
+  }).toString();
+  const url = `http://localhost:5775/api/movies?${queryParams}`;
+
+  fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+          const moviesArray = data.movies.movies;
+          const moviesContainer = document.getElementById("movies_container");
+          moviesContainer.innerHTML = ""; // Clear the existing movie cards
+          moviesArray.forEach((movie) => {
+              const movieCard = createMovieCard(movie);
+              moviesContainer.innerHTML += movieCard;
+          });
+      })
+      .catch((error) => console.error("Error fetching movies: ", error));
 }
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -23,7 +23,7 @@ p {
 	color: $p-color-black;
 }
 
-.search_filter {
+.search_filter, .pagination {
     label {
         @include fontSize(0.9);
         font-family: 'Roboto', sans-serif;
@@ -73,18 +73,56 @@ button.filter_btn {
 	font-family: 'Roboto', sans-serif;
 	color: $bg-light-bege;
 	text-transform: capitalize;
-	line-height: 150%;
+	line-height: 200%;
 
 	h2{
-		@include fontSize(1.2);
+		@include fontSize(2);
+		margin-bottom: 30px;
 	}
 
 	h3{
-		@include fontSize(0.9);
+		@include fontSize(1);
 	}
 
 	p{
-		@include fontSize(0.7);
+		@include fontSize(0.8);
+	}
+}
+
+.card-body {
+	font-family: 'Roboto', sans-serif;
+	color: $bg-light-bege;
+	text-transform: capitalize;
+	line-height: 120%;
+
+	.card-title{
+		@include fontSize(1.1);
+		color: $bg-light-bege;
+		margin-bottom: 10px;
+	}
+
+	.card-text{
+		@include fontSize(0.9);
 		color: $bg-light-bege;
 	}
+}
+
+button.delete_btn, button.edit_btn {
+	@include fontSize(0.8);
+	font-family: 'Roboto', sans-serif;
+	color: $p-color-white;
+	text-transform: uppercase;
+	&:hover{
+        font-weight: bold;
+    }
+}
+
+button.rate_btn {
+	@include fontSize(0.8);
+	font-family: 'Roboto', sans-serif;
+	color: $bg-light-wine;
+	text-transform: uppercase;
+	&:hover{
+        font-weight: bold;
+    }
 }
