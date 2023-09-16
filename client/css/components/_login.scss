@@ -12,7 +12,7 @@
     background-color: rgba(0,0,0,0.5);
 
     &_content {
-        background-color: #fff;
+        background-color: $bg-light-bege;
         margin: 10% auto;
         padding: 20px;
         border: 1px solid #888;
@@ -20,6 +20,10 @@
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
         text-align: center;
     }
+}
+
+.login_area {
+    @include flex(center, center);
 }
 
 #loginForm {
@@ -30,14 +34,30 @@
     text-align: center;
     input{
         margin: 5px;
+        background-color: $bg-dark-bege;
+        border: none;
+        outline: none;
+        padding: 8px;
     }
 }
 
 #registerForm {
     display: none;
+    input{
+        margin: 5px;
+        background-color: $bg-dark-bege;
+        border: none;
+        outline: none;
+        padding: 8px;
+    }
 }
 
 .close {
     float: right;
     cursor: pointer;
+}
+
+.userProfile {
+    @include flex(center, center);
+    flex-direction: column;
 }

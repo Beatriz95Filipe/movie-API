@@ -14,7 +14,10 @@
         <a class="navbar_logo" href="index.html">
             <img src="assets/movie-logo.png" alt="logo">
         </a>
-        <button class="login_btn" id="loginBtn">Login</button>
+        <div class="login_area">
+            <button class="login_btn" id="loginBtn">Login</button>
+            <span class="userProfile" id="userProfile"></span>
+        </div>
         <div id="loginModal" class="modal">
             <div class="modal_content">
                 <span class="close">&times;</span>
@@ -22,16 +25,15 @@
                 <form action="" id="loginForm">
                     <input type="email" placeholder="Email" id="loginEmail">
                     <input type="password" placeholder="Password" id="loginPass">
-                    <button type="submit" id="loginBtn">Enter your account</button>
+                    <button type="submit" id="loginSubmit">Enter your account</button>
                 </form>
                 <form action="" id="registerForm">
-                    <p>Don't have an account?</p>
                     <input type="text" placeholder="Name" id="registerName">
                     <input type="email" placeholder="Email" id="registerEmail">
                     <input type="password" placeholder="Password" id="registerPass">
-                    <button type="submit" id="registerBtn">Register your account</button>
+                    <button type="submit" id="registerSubmit">Register your account</button>
                 </form>
-                <p>Already have an account? <a href="#" id="toggleForms">Login</a></p>
+                <p id="register">Don't have an account? <a href="#" id="toggleForms">Register</a></p>
             </div>
         </div>
     </nav>
@@ -41,6 +43,10 @@
             <h2>movie title</h2>
             <h3>year, film director</h3>
             <h3>genres</h3>
+            <div class="admin_crud" id="admin_crud">
+                <button class="btn edit_btn">Edit</button>
+                <button class="btn delete_btn">Delete</button>
+            </div>
         </div>
         <div class="col-lg-4 movie_card_rating">
             <img src="./assets/movie-rating.png" alt="rating">

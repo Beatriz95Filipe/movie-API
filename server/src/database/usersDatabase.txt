@@ -99,6 +99,8 @@
 
 USERS REGISTRATION:
 
+Beatriz is ADMIN !
+
 {
     "name": "Beatriz",
     "email": "beatriz.filipe@gmail.com",

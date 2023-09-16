@@ -20,7 +20,7 @@ a:hover {
   cursor: pointer;
 }
 
-p {
+p, span {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
@@ -58,6 +58,29 @@ button.login_btn:hover {
 }
 button.login_btn_submit {
   text-transform: uppercase;
+}
+
+button.logout_btn {
+  font-size: 16.8px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+button.logout_btn:hover {
+  font-weight: bold;
+}
+
+.modal_content {
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  line-height: 200%;
+}
+.modal_content h2 {
+  font-size: 16.8px;
+  margin-bottom: 20px;
+}
+.modal_content p {
+  margin-top: 20px;
 }
 
 button.filter_btn {
@@ -120,6 +143,12 @@ button.rate_btn:hover {
   font-weight: bold;
 }
 
+.rating_review {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+}
+
 .login_btn {
   background: none;
   border: none;
@@ -132,6 +161,24 @@ button.rate_btn:hover {
   background-color: #eeddb4;
   border: none;
   padding: 16px;
+}
+
+.logout_btn {
+  background: none;
+  border: none;
+  padding: 16px 24px 16px;
+}
+.logout_btn:hover {
+  cursor: pointer;
+}
+
+#loginSubmit, #registerSubmit {
+  background-color: #eeddb4;
+  border: none;
+  padding: 8px;
+}
+#loginSubmit:hover, #registerSubmit:hover {
+  cursor: pointer;
 }
 
 .filter_btn {
@@ -147,6 +194,7 @@ button.rate_btn:hover {
 .delete_btn, .edit_btn {
   background-color: #973e3e;
   border: none;
+  margin-top: 20px;
   padding: 8px;
   width: 55px;
 }
@@ -158,7 +206,7 @@ button.rate_btn:hover {
   background-color: #fffaec;
   border: none;
   padding: 8px;
-  margin: 20px;
+  margin-left: 20px;
 }
 .rate_btn:hover {
   cursor: pointer;
@@ -374,7 +422,7 @@ a:hover {
   cursor: pointer;
 }
 
-p {
+p, span {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
@@ -412,6 +460,29 @@ button.login_btn:hover {
 }
 button.login_btn_submit {
   text-transform: uppercase;
+}
+
+button.logout_btn {
+  font-size: 16.8px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+button.logout_btn:hover {
+  font-weight: bold;
+}
+
+.modal_content {
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  line-height: 200%;
+}
+.modal_content h2 {
+  font-size: 16.8px;
+  margin-bottom: 20px;
+}
+.modal_content p {
+  margin-top: 20px;
 }
 
 button.filter_btn {
@@ -472,6 +543,12 @@ button.rate_btn {
 }
 button.rate_btn:hover {
   font-weight: bold;
+}
+
+.rating_review {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
 }
 
 body {
@@ -496,7 +573,7 @@ a:hover {
   cursor: pointer;
 }
 
-p {
+p, span {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
@@ -534,6 +611,29 @@ button.login_btn:hover {
 }
 button.login_btn_submit {
   text-transform: uppercase;
+}
+
+button.logout_btn {
+  font-size: 16.8px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+button.logout_btn:hover {
+  font-weight: bold;
+}
+
+.modal_content {
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  line-height: 200%;
+}
+.modal_content h2 {
+  font-size: 16.8px;
+  margin-bottom: 20px;
+}
+.modal_content p {
+  margin-top: 20px;
 }
 
 button.filter_btn {
@@ -596,6 +696,12 @@ button.rate_btn:hover {
   font-weight: bold;
 }
 
+.rating_review {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -606,13 +712,19 @@ button.rate_btn:hover {
   background-color: rgba(0, 0, 0, 0.5);
 }
 .modal_content {
-  background-color: #fff;
+  background-color: #fffaec;
   margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 50%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   text-align: center;
+}
+
+.login_area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #loginForm {
@@ -626,15 +738,33 @@ button.rate_btn:hover {
 }
 #loginForm input {
   margin: 5px;
+  background-color: #eeddb4;
+  border: none;
+  outline: none;
+  padding: 8px;
 }
 
 #registerForm {
   display: none;
 }
+#registerForm input {
+  margin: 5px;
+  background-color: #eeddb4;
+  border: none;
+  outline: none;
+  padding: 8px;
+}
 
 .close {
   float: right;
   cursor: pointer;
+}
+
+.userProfile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 body {
@@ -659,7 +789,7 @@ a:hover {
   cursor: pointer;
 }
 
-p {
+p, span {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
@@ -697,6 +827,29 @@ button.login_btn:hover {
 }
 button.login_btn_submit {
   text-transform: uppercase;
+}
+
+button.logout_btn {
+  font-size: 16.8px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+button.logout_btn:hover {
+  font-weight: bold;
+}
+
+.modal_content {
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  line-height: 200%;
+}
+.modal_content h2 {
+  font-size: 16.8px;
+  margin-bottom: 20px;
+}
+.modal_content p {
+  margin-top: 20px;
 }
 
 button.filter_btn {
@@ -757,6 +910,12 @@ button.rate_btn {
 }
 button.rate_btn:hover {
   font-weight: bold;
+}
+
+.rating_review {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
 }
 
 .movie_card_thumbnail {
@@ -782,12 +941,6 @@ button.rate_btn:hover {
   -o-object-fit: cover;
      object-fit: cover;
 }
-.movie_card_thumbnail .admin_crud {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-}
 
 body {
   background-color: #eeddb4;
@@ -811,7 +964,7 @@ a:hover {
   cursor: pointer;
 }
 
-p {
+p, span {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
@@ -849,6 +1002,29 @@ button.login_btn:hover {
 }
 button.login_btn_submit {
   text-transform: uppercase;
+}
+
+button.logout_btn {
+  font-size: 16.8px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+button.logout_btn:hover {
+  font-weight: bold;
+}
+
+.modal_content {
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  line-height: 200%;
+}
+.modal_content h2 {
+  font-size: 16.8px;
+  margin-bottom: 20px;
+}
+.modal_content p {
+  margin-top: 20px;
 }
 
 button.filter_btn {
@@ -909,6 +1085,12 @@ button.rate_btn {
 }
 button.rate_btn:hover {
   font-weight: bold;
+}
+
+.rating_review {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
 }
 
 .movie_card {
@@ -935,17 +1117,42 @@ button.rate_btn:hover {
 .movie_card_rating img {
   max-width: 100px;
 }
-.movie_card_rating .search_filter label {
+.movie_card_rating .rating_review {
+  margin-left: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+.movie_card_rating .rating_review label {
   display: flex;
   align-items: flex-end;
   margin-bottom: 4px;
 }
-.movie_card_rating .search_filter select, .movie_card_rating .search_filter option {
+.movie_card_rating .rating_review select, .movie_card_rating .rating_review option {
   background-color: #fffaec;
   border: none;
   outline: none;
   width: 100%;
   padding: 8px;
+}
+.movie_card_rating .rating_review input {
+  background-color: #fffaec;
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 300px;
+}
+.movie_card_rating button {
+  margin-top: 10px;
+}
+
+.admin_crud {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 body {
@@ -970,7 +1177,7 @@ a:hover {
   cursor: pointer;
 }
 
-p {
+p, span {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
@@ -1008,6 +1215,29 @@ button.login_btn:hover {
 }
 button.login_btn_submit {
   text-transform: uppercase;
+}
+
+button.logout_btn {
+  font-size: 16.8px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+button.logout_btn:hover {
+  font-weight: bold;
+}
+
+.modal_content {
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  line-height: 200%;
+}
+.modal_content h2 {
+  font-size: 16.8px;
+  margin-bottom: 20px;
+}
+.modal_content p {
+  margin-top: 20px;
 }
 
 button.filter_btn {
@@ -1068,6 +1298,12 @@ button.rate_btn {
 }
 button.rate_btn:hover {
   font-weight: bold;
+}
+
+.rating_review {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
 }
 
 .navbar {
@@ -1121,7 +1357,7 @@ a:hover {
   cursor: pointer;
 }
 
-p {
+p, span {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
@@ -1159,6 +1395,29 @@ button.login_btn:hover {
 }
 button.login_btn_submit {
   text-transform: uppercase;
+}
+
+button.logout_btn {
+  font-size: 16.8px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+button.logout_btn:hover {
+  font-weight: bold;
+}
+
+.modal_content {
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  line-height: 200%;
+}
+.modal_content h2 {
+  font-size: 16.8px;
+  margin-bottom: 20px;
+}
+.modal_content p {
+  margin-top: 20px;
 }
 
 button.filter_btn {
@@ -1219,6 +1478,12 @@ button.rate_btn {
 }
 button.rate_btn:hover {
   font-weight: bold;
+}
+
+.rating_review {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
 }
 
 .search_filters, .pagination {
@@ -1283,7 +1548,7 @@ a:hover {
   cursor: pointer;
 }
 
-p {
+p, span {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
@@ -1321,6 +1586,29 @@ button.login_btn:hover {
 }
 button.login_btn_submit {
   text-transform: uppercase;
+}
+
+button.logout_btn {
+  font-size: 16.8px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+button.logout_btn:hover {
+  font-weight: bold;
+}
+
+.modal_content {
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
+  line-height: 200%;
+}
+.modal_content h2 {
+  font-size: 16.8px;
+  margin-bottom: 20px;
+}
+.modal_content p {
+  margin-top: 20px;
 }
 
 button.filter_btn {
@@ -1381,6 +1669,12 @@ button.rate_btn {
 }
 button.rate_btn:hover {
   font-weight: bold;
+}
+
+.rating_review {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  color: #1a1a1a;
 }
 
 .searchbar {

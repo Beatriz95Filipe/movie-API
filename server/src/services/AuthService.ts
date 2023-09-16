@@ -90,7 +90,3 @@ class AuthService {
 }
 
 export default new AuthService();
-
-// function next(error: unknown) {
-//   throw new Error("Function not implemented.");
-// }

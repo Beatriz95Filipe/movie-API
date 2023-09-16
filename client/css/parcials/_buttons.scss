@@ -16,6 +16,25 @@
     }
 }
 
+.logout_btn {
+    background: none;
+    border: none;
+    padding: 16px 24px 16px;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+
+#loginSubmit, #registerSubmit {
+    background-color: $bg-dark-bege;
+    border: none;
+    padding: 8px;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
 .filter_btn {
     background-color:$p-color-wine;
     border: none;
@@ -29,6 +48,7 @@
 .delete_btn, .edit_btn {
     background-color:$p-color-wine;
     border: none;
+    margin-top: 20px;
     padding: 8px;
     width: 55px;
     &:hover{
@@ -40,7 +60,7 @@
     background-color: $bg-light-bege;
     border: none;
     padding: 8px;
-    margin: 20px;
+    margin-left: 20px;
     &:hover{
         cursor: pointer;
         box-shadow: 0 3px 5px 0px $bg-light-wine;

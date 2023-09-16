@@ -1,5 +1,156 @@
 const body = document.getElementsByTagName("body");
 
+//LOGIN, REGISTER and LOGOUT
+document.addEventListener("DOMContentLoaded", () => {
+  createSearchBar();
+
+  const userProfile = document.getElementById("userProfile");
+  const loginBtn = document.getElementById("loginBtn");
+  const loginModal = document.getElementById("loginModal");
+  const closeBtn = document.querySelector(".close");
+  const loginForm = document.getElementById("loginForm");
+  const registerForm = document.getElementById("registerForm");
+  const toggleForms = document.getElementById("toggleForms");
+  const registerAccount = document.getElementById("register");
+
+  let isLoggedIn = false;
+
+  //show login modal
+  const showLoginModal = () => {
+    loginModal.style.display = "block";
+  };
+  loginBtn.addEventListener("click", showLoginModal);
+
+  //close login modal
+  const closeLoginModal = () => {
+    loginModal.style.display = "none";
+  };
+  closeBtn.addEventListener("click", closeLoginModal);
+
+  //toggle between login and register
+  toggleForms.addEventListener("click", (event) => {
+    event.preventDefault();
+    loginForm.style.display = isLoggedIn ? "block" : "none";
+    registerForm.style.display = isLoggedIn ? "none" : "block";
+    registerAccount.style.display = isLoggedIn ? "block" : "none";
+    isLoggedIn = !isLoggedIn;
+  });
+
+  //register
+  const registerUser = async () => {
+    const name = document.getElementById("registerName").value;
+    const email = document.getElementById("registerEmail").value;
+    const password = document.getElementById("registerPass").value;
+
+    try {
+      const response = await fetch("http://localhost:5775/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Registration failed");
+      }
+
+      closeLoginModal();
+      alert(`Hi ${name}, welcome to our community!`);
+    } catch (error) {
+      console.error("Registration failed:", error);
+      alert("Registration failed. Please try again.");
+    }
+  };
+
+  registerForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    registerUser();
+  });
+
+  //login
+  const loginUser = async () => {
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPass").value;
+
+    try {
+      const response = await fetch("http://localhost:5775/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
+
+      const data = await response.json();
+      //console.log("data ", data);
+      localStorage.setItem("accessToken", data.accessToken);
+
+      // Check if user is ADMIN
+      const isAdmin = data.user.roles.includes("64f8e7589f2a3c538298b6f4");
+      localStorage.setItem("isAdmin", isAdmin);
+      console.log(isAdmin);
+
+      const userName = data.user.name;
+      userProfile.innerHTML = `
+      <span>${userName}</span>
+      <button type="submit" class="logout_btn" id="logoutBtn">Logout</button>`;
+
+      console.log("userName ", userName);
+      isLoggedIn = true;
+      closeLoginModal();
+      checkLoggedInStatus();
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert("Login failed. Please try again.");
+    }
+  };
+
+  loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    console.log("login click");
+    loginUser();
+  });
+
+  // Function to check if the user is logged in
+  const checkLoggedInStatus = () => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (accessToken) {
+      userProfile.style.display = "block";
+      loginBtn.style.display = "none";
+    } else {
+      userProfile.style.display = "none";
+      loginBtn.style.display = "block";
+    }
+  };
+
+  //logout
+  const logoutUser = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("isAdmin");
+    isLoggedIn = false;
+    checkLoggedInStatus();
+    console.log("logout");
+  };
+  document.body.addEventListener("click", (event) => {
+    if (event.target && event.target.matches(".logout_btn")) {
+      event.preventDefault();
+      logoutUser();
+      location.reload();
+    }
+  });
+
+  //check initial login status
+  checkLoggedInStatus();
+});
+
+//MOVIES
+
 //get filter options from movies specifics
 function populateFiltersOptions() {
   const genreSelect = document.getElementById("genre");
@@ -60,10 +211,11 @@ populateFiltersOptions();
 //create moviecard
 function createMovieCard(movie){
   const onlyYear = parseInt(movie.releaseDate.slice(0, 4));
+
   return `
   <div class="col-lg-4 movie_card_thumbnail">
     <div class="card-body">
-      <a href="./moviepage.html?id=${movie._id}">
+      <a href="./moviepage.html?id=${movie._id}" target="_blank">
         <p class="card-title">${movie.title}</p>
       </a>
       <p class="card-text">${onlyYear}, ${movie.filmDirector.join(', ')}</p>
@@ -71,10 +223,6 @@ function createMovieCard(movie){
     </div>
     <div class="card-img">
       <img src="${movie.posterUrl}" alt="movie-poster">
-    </div>
-    <div class="admin_crud">
-      <button class="btn edit_btn" data-id="${movie._id}">Edit</button>
-      <button class="btn delete_btn" data-id="${movie._id}">Delete</button>
     </div>
   </div>`;
 }
@@ -159,10 +307,6 @@ function handlePageNavigation() {
       .catch((error) => console.error("Error fetching movies: ", error));
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  createSearchBar();
-});
-
 //search bar
 async function createSearchBar() {
   try{
@@ -218,254 +362,3 @@ async function createSearchBar() {
     console.log(error);
   }
 }
-
-
-const loginBtn = document.getElementById("loginBtn");
-const loginModal = document.getElementById("loginModal");
-
-//event listener to open modal
-loginBtn.onclick = () => {
-  loginModal.style.display = "block";
-}
-
-const closeModal = document.querySelector(".close");
-
-//event listener to close modal
-closeModal.onclick = () => {
-  loginModal.style.display = "none";
-}
-
-//toggle between login and register
-const loginForm = document.getElementById("loginForm");
-const registerForm = document.getElementById("registerForm");
-const loginButton = document.getElementById("loginBtn");
-const registerButton = document.getElementById("registerBtn");
-const toggleForms = document.getElementById("toggleForms");
-
-function toggleLogin() {
-  if(loginForm.style.display === "block"){
-    loginForm.style.display = "none";
-    registerForm.style.display = "block";
-  } else {
-    loginForm.style.display = "block";
-    registerForm.style.display = "none";
-  }
-}
-
-toggleForms.addEventListener("click", function(event) {
-  event.preventDefault();
-  toggleLogin();
-});
-
-//show login first
-loginForm.style.display = "block";
-registerForm.style.display = "none";
-
-
-//change movie page title
-// function handleMovieTitle() {
-
-// }
-
-// //filter btn
-// function handleFilterBtnClick() {
-//   const genreId = document.getElementById("genre").value;
-//   const yearsId = document.getElementById("year").value;
-//   const directorId = document.getElementById("director").value;
-
-//   const queryParams = new URLSearchParams({
-//     genreId,
-//     yearsId,
-//     directorId,
-//   }).toString();
-
-//   const url = `http://localhost:5775/api/movies/?${queryParams}`;
-
-//   const accessToken = localStorage.getItem("accessToken");
-//   const headers = new Headers();
-//   headers.append("Authorization", `Bearer ${accessToken}`);
-
-//   fetch(url, { headers })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       const moviesContainer = document.querySelector(".movies_container");
-//       moviesContainer.innerHTML = "";
-
-//       data.forEach((movie) => {
-//         const movieElement = createMovieCard(movie);
-//         moviesContainer.insertAdjacentHTML("beforeend", movieElement);
-//       });
-//       const deletedBtns = document.querySelectorAll(".delete-btn");
-
-//       deletedBtns.forEach((deletedBtn) => {
-//         deletedBtn.addEventListener("click", handleDeleteMovie);
-//       });
-//     })
-//     .catch((error) => console.error("Error fetching products:", error));
-// }
-
-// //delete movie btn
-// function handleDeleteMovie(event) {
-//   const movieId = event.target.dataset.id;
-//   const accessToken = localStorage.getItem("accessToken");
-
-//   const headers = new Headers();
-//   headers.append("Authorization", `Bearer ${accessToken}`);
-
-//   fetch(`http://localhost:5775/api/movies/${movieId}`, {
-//     method: "DELETE",
-//     headers: headers,
-//   })
-//     .then((response) => {
-//       if (!response.ok) {
-//         throw new Error("Error deleting movie");
-//       }
-//       return response.json();
-//     })
-//     .then(() => {
-//       event.target.parentElement.parentElement.parentElement.remove();
-//     })
-//     .catch((error) => console.error("Error deleting movie:", error));
-// }
-
-// handleFilterBtnClick();
-
-// //login & register modal
-// var modal = document.getElementById("loginModal");
-// var loginBtn = document.getElementById("loginBtn");
-// var closeBtn = document.getElementsByClassName("close")[0];
-
-// loginBtn.onclick = () => {
-//   modal.style.display = "block";
-// }
-
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// }
-
-
-// //event listener to register
-// registerButton.onclick = () => {
-//   loginForm.style.display = "none";
-//   registerForm.style.display = "block";
-// }
-
-
-// // Login function
-// async function login(email, password) {
-//   try {
-//     // Clear any previous user information from localStorage
-//     localStorage.removeItem("userName");
-//     localStorage.removeItem("userEmail");
-//     const response = await fetch("http://localhost:5775/auth/login", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ email, password }),
-//     });
-
-//     if (!response.ok) {
-//       alert("Login failed"); // Show alert for failed login
-//       const loginModal = document.getElementById("loginModal");
-//       loginModal.hide();
-//     } else {
-//       const data = await response.json();
-
-//       if (data.accessToken && data.user) {
-//         const { accessToken, user } = data;
-
-//         // Store the access token
-//         localStorage.setItem("accessToken", accessToken);
-
-//         // Store user information in localStorage
-//         localStorage.setItem("userName", user.name);
-//         localStorage.setItem("userEmail", user.email);
-
-//         // Update the user profile in the navigation bar
-//         handleLoginSuccess();
-
-//         // Hide the login modal
-//         const loginModal = document.getElementById("loginModal");
-//         loginModal.hide();
-//       }
-//     }
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-// // Handling the login form submission
-// const loginForm = document.getElementById("loginForm"); // Add this ID to your login form
-// loginForm.addEventListener("submit", async (event) => {
-//   event.preventDefault();
-
-//   const email = document.getElementById("email").value;
-//   const password = document.getElementById("password").value;
-
-//   try {
-//     await login(email, password);
-//     console.log("Logged in successfully");
-//   } catch (error) {
-//     console.error("Login failed:", error);
-//   }
-// });
-
-// // After successful login
-// function handleLoginSuccess() {
-//   const userName = localStorage.getItem("userName");
-//   const userEmail = localStorage.getItem("userEmail");
-
-//   const userProfile = document.getElementById("userProfile");
-//   userProfile.innerHTML = `${userName} <a href="#" id="logoutLink">Logout</a>`;
-
-//   // Add a click event listener to the logout link
-//   const logoutLink = document.getElementById("logoutLink");
-//   logoutLink.addEventListener("click", handleLogout);
-
-//   // Hide the login button
-//   const loginContainer = document.getElementById("loginContainer");
-//   loginContainer.style.display = "none";
-// }
-
-// // Logout handler
-// function handleLogout() {
-//   // Clear user data and update the navigation bar
-//   localStorage.removeItem("accessToken");
-//   const userProfile = document.getElementById("userProfile");
-//   userProfile.innerHTML = ""; // Clear the user profile element
-
-//   const loginContainer = document.getElementById("loginContainer");
-//   loginContainer.style.display = "block";
-// }
-
-// const filterBtn = document.getElementById("filterBtn");
-// filterBtn.addEventListener("click", handleFilterBtnClick);
-
-// function checkLoggedInStatus() {
-//   const accessToken = localStorage.getItem("accessToken");
-//   const loginContainer = document.getElementById("loginContainer");
-//   const userProfile = document.getElementById("userProfile");
-
-//   if (accessToken) {
-//     // User is logged in
-//     loginContainer.style.display = "none";
-
-//     const userName = localStorage.getItem("userName");
-//     const userRole = localStorage.getItem("userRole");
-//     userProfile.innerHTML = `${userName} <a href="#" id="logoutLink">Logout</a>`;
-
-//     // Add a click event listener to the logout link
-//     const logoutLink = document.getElementById("logoutLink");
-//     logoutLink.addEventListener("click", handleLogout);
-//   } else {
-//     // User is not logged in
-//     userProfile.innerHTML = ""; // Clear the user profile element
-//     loginContainer.style.display = "block";
-//   }
-// }
-
-// // Call the function to check the initial status
-// checkLoggedInStatus();
-

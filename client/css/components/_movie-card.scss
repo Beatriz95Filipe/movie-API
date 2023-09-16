@@ -24,9 +24,4 @@
             object-fit: cover;
         }
     }
-
-    .admin_crud {
-        @include flex(center, center);
-        gap: 20px;
-    }
 }

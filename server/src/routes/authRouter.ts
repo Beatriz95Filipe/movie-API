@@ -1,5 +1,6 @@
 import express from "express";
 import AuthController from "./../controllers/AuthController.js";
+import UserController from "../controllers/UserController.js";
 import { authMiddleware, isAdmin} from "./../middlewares/AuthMiddleware.js";
 import { check } from "express-validator";
 
@@ -45,11 +46,10 @@ router.post(
   AuthController.login
 );
 
-//GET
-router.get(
-  '/',
-  authMiddleware,
-  AuthController.getAll
-);
+//GET ALL
+router.get('/', authMiddleware, AuthController.getAll);
+
+//GET ONE USER
+router.get('/user/:id', authMiddleware, UserController.getOne);
 
 export default router;

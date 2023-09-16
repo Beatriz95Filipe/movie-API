@@ -17,7 +17,7 @@ a {
 	}
 }
 
-p {
+p, span {
 	@include fontSize(1);
 	font-family: 'Roboto', sans-serif;
 	color: $p-color-black;
@@ -60,6 +60,31 @@ button.login_btn {
 	&_submit{
         text-transform: uppercase;
     }
+}
+
+button.logout_btn {
+	@include fontSize(1.2);
+	font-family: 'Roboto', sans-serif;
+	color: $p-color-black;
+	text-transform: capitalize;
+    &:hover{
+        font-weight: bold;
+    }
+}
+
+.modal_content {
+	font-family: 'Roboto', sans-serif;
+	color: $p-color-black;
+	line-height: 200%;
+
+	h2{
+		@include fontSize(1.2);
+		margin-bottom: 20px;
+	}
+
+	p{
+		margin-top: 20px;
+	}
 }
 
 button.filter_btn {
@@ -125,4 +150,10 @@ button.rate_btn {
 	&:hover{
         font-weight: bold;
     }
+}
+
+.rating_review {
+	@include fontSize(1);
+	font-family: 'Roboto', sans-serif;
+	color: $p-color-black;
 }
