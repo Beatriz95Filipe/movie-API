@@ -85,13 +85,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const data = await response.json();
-      //console.log("data ", data);
+      console.log("data ", data);
       localStorage.setItem("accessToken", data.accessToken);
 
       // Check if user is ADMIN
       const isAdmin = data.user.roles.includes("64f8e7589f2a3c538298b6f4");
       localStorage.setItem("isAdmin", isAdmin);
       console.log(isAdmin);
+
+      const userId = data.user._id;
+      localStorage.setItem("userId", userId);
 
       const userName = data.user.name;
       userProfile.innerHTML = `
@@ -138,9 +141,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoutUser = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("isAdmin");
+    localStorage.removeItem("userId");
     isLoggedIn = false;
     checkLoggedInStatus();
-    console.log("logout");
+    //console.log("logout");
   };
   document.body.addEventListener("click", (event) => {
     if (event.target && event.target.matches(".logout_btn")) {
@@ -156,19 +160,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const movieUrlParams = new URLSearchParams (window.location.search);
 const clickedMovie = movieUrlParams.get("id");
-console.log(clickedMovie);
+//console.log(clickedMovie);
 
 async function getMovie(clickedMovie) {
   try {
     const response = await fetch("http://localhost:5775/api/movies/"+clickedMovie);
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`Error! Status: ${response.status}`);
     }
     const movieInfo = await response.json();
-    console.log("movieinfo ", movieInfo);
+    //console.log("movieinfo ", movieInfo);
     return movieInfo;
   } catch (error) {
     console.error("Error fetching movie data:", error);
+  }
+}
+
+//get averageRating and totalRatings
+async function getRating(clickedMovie) {
+  try {
+    const response = await fetch("http://localhost:5775/api/ratings/"+clickedMovie);
+    if (response.ok) {
+      const ratingData = await response.json();
+      //console.log("ratingData ", ratingData);
+      return ratingData;
+    } else {
+      throw new Error(`Error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error fetching ratings data:", error);
+    return null;
   }
 }
 
@@ -178,7 +199,9 @@ movieCardInfo.innerHTML = "";
 //create clicked moviecard
 async function createClickedMovieCard(){
   let movie = await getMovie(clickedMovie);
-  console.log(movie);
+  let rating = await getRating(clickedMovie);
+  //console.log(movie);
+  //console.log(rating);
   const onlyYear = parseInt(movie.releaseDate.slice(0, 4));
   console.log(movie.trailerLink);
 
@@ -195,6 +218,7 @@ async function createClickedMovieCard(){
       <h2>${movie.title}</h2>
       <h3>${onlyYear}, ${movie.filmDirector.join(', ')}</h3>
       <h3>${movie.genres.join(', ')}</h3>
+      <h4>Average rating: ${rating.averageRating} stars out of ${rating.totalRatings} reviews</h4>
       <div class="admin_crud" id="admin_crud" style="display: ${showCrudBtns};">
         <button class="btn edit_btn" data-id="${movie._id}">Edit</button>
         <button class="btn delete_btn" data-id="${movie._id}">Delete</button>
@@ -203,6 +227,64 @@ async function createClickedMovieCard(){
 }
 
 createClickedMovieCard();
+
+//rate movie
+async function rateMovie(userId, movieId, rating, comment) {
+  const accessToken = localStorage.getItem("accessToken");
+
+  if (!accessToken) {
+    alert("Please log in to rate the movie.");
+    return;
+  } //only users logged can rate
+
+  const ratingData = {
+    movieId,
+    userId,
+    rating,
+    comment,
+  };
+  console.log(ratingData);
+
+  try {
+    const response = await fetch("http://localhost:5775/api/ratings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(ratingData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Rating failed");
+    }
+
+    alert("Rating submitted successfully!");
+    console.log(response);
+  } catch (error) {
+    console.error("Rating failed:", error);
+    alert("Rating failed. Please try again.");
+  }
+}
+
+//rateMovie Event Listener
+const ratingForm = document.getElementById("rating");
+ratingForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const rateSelect = document.getElementById("rateSelect");
+  const commentField = document.getElementById("commentField");
+
+  const rating = parseInt(rateSelect.value);
+  const comment = commentField.value;
+
+  const userId = localStorage.getItem("userId");
+  console.log(userId);
+  const movieId = clickedMovie;
+  console.log(movieId);
+
+  rateMovie(userId, movieId, rating, comment);
+});
 
 
 // //delete movie btn

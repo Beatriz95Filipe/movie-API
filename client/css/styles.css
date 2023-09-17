@@ -93,18 +93,23 @@ button.filter_btn {
 .movie_card_info {
   font-family: "Roboto", sans-serif;
   color: #fffaec;
-  text-transform: capitalize;
   line-height: 200%;
 }
 .movie_card_info h2 {
   font-size: 28px;
   margin-bottom: 30px;
+  text-transform: capitalize;
 }
 .movie_card_info h3 {
   font-size: 14px;
+  text-transform: capitalize;
+}
+.movie_card_info h4 {
+  font-size: 9.8px;
 }
 .movie_card_info p {
   font-size: 11.2px;
+  text-transform: capitalize;
 }
 
 .card-body {
@@ -147,6 +152,12 @@ button.rate_btn:hover {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
+}
+.rating_review input {
+  text-align: center;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .login_btn {
@@ -495,18 +506,23 @@ button.filter_btn {
 .movie_card_info {
   font-family: "Roboto", sans-serif;
   color: #fffaec;
-  text-transform: capitalize;
   line-height: 200%;
 }
 .movie_card_info h2 {
   font-size: 28px;
   margin-bottom: 30px;
+  text-transform: capitalize;
 }
 .movie_card_info h3 {
   font-size: 14px;
+  text-transform: capitalize;
+}
+.movie_card_info h4 {
+  font-size: 9.8px;
 }
 .movie_card_info p {
   font-size: 11.2px;
+  text-transform: capitalize;
 }
 
 .card-body {
@@ -549,6 +565,12 @@ button.rate_btn:hover {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
+}
+.rating_review input {
+  text-align: center;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 body {
@@ -646,18 +668,23 @@ button.filter_btn {
 .movie_card_info {
   font-family: "Roboto", sans-serif;
   color: #fffaec;
-  text-transform: capitalize;
   line-height: 200%;
 }
 .movie_card_info h2 {
   font-size: 28px;
   margin-bottom: 30px;
+  text-transform: capitalize;
 }
 .movie_card_info h3 {
   font-size: 14px;
+  text-transform: capitalize;
+}
+.movie_card_info h4 {
+  font-size: 9.8px;
 }
 .movie_card_info p {
   font-size: 11.2px;
+  text-transform: capitalize;
 }
 
 .card-body {
@@ -700,6 +727,12 @@ button.rate_btn:hover {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
+}
+.rating_review input {
+  text-align: center;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .modal {
@@ -862,18 +895,23 @@ button.filter_btn {
 .movie_card_info {
   font-family: "Roboto", sans-serif;
   color: #fffaec;
-  text-transform: capitalize;
   line-height: 200%;
 }
 .movie_card_info h2 {
   font-size: 28px;
   margin-bottom: 30px;
+  text-transform: capitalize;
 }
 .movie_card_info h3 {
   font-size: 14px;
+  text-transform: capitalize;
+}
+.movie_card_info h4 {
+  font-size: 9.8px;
 }
 .movie_card_info p {
   font-size: 11.2px;
+  text-transform: capitalize;
 }
 
 .card-body {
@@ -916,6 +954,12 @@ button.rate_btn:hover {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
+}
+.rating_review input {
+  text-align: center;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .movie_card_thumbnail {
@@ -1037,18 +1081,23 @@ button.filter_btn {
 .movie_card_info {
   font-family: "Roboto", sans-serif;
   color: #fffaec;
-  text-transform: capitalize;
   line-height: 200%;
 }
 .movie_card_info h2 {
   font-size: 28px;
   margin-bottom: 30px;
+  text-transform: capitalize;
 }
 .movie_card_info h3 {
   font-size: 14px;
+  text-transform: capitalize;
+}
+.movie_card_info h4 {
+  font-size: 9.8px;
 }
 .movie_card_info p {
   font-size: 11.2px;
+  text-transform: capitalize;
 }
 
 .card-body {
@@ -1091,6 +1140,12 @@ button.rate_btn:hover {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
+}
+.rating_review input {
+  text-align: center;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .movie_card {
@@ -1250,18 +1305,23 @@ button.filter_btn {
 .movie_card_info {
   font-family: "Roboto", sans-serif;
   color: #fffaec;
-  text-transform: capitalize;
   line-height: 200%;
 }
 .movie_card_info h2 {
   font-size: 28px;
   margin-bottom: 30px;
+  text-transform: capitalize;
 }
 .movie_card_info h3 {
   font-size: 14px;
+  text-transform: capitalize;
+}
+.movie_card_info h4 {
+  font-size: 9.8px;
 }
 .movie_card_info p {
   font-size: 11.2px;
+  text-transform: capitalize;
 }
 
 .card-body {
@@ -1304,6 +1364,12 @@ button.rate_btn:hover {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
+}
+.rating_review input {
+  text-align: center;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .navbar {
@@ -1430,18 +1496,23 @@ button.filter_btn {
 .movie_card_info {
   font-family: "Roboto", sans-serif;
   color: #fffaec;
-  text-transform: capitalize;
   line-height: 200%;
 }
 .movie_card_info h2 {
   font-size: 28px;
   margin-bottom: 30px;
+  text-transform: capitalize;
 }
 .movie_card_info h3 {
   font-size: 14px;
+  text-transform: capitalize;
+}
+.movie_card_info h4 {
+  font-size: 9.8px;
 }
 .movie_card_info p {
   font-size: 11.2px;
+  text-transform: capitalize;
 }
 
 .card-body {
@@ -1484,6 +1555,12 @@ button.rate_btn:hover {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
+}
+.rating_review input {
+  text-align: center;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .search_filters, .pagination {
@@ -1621,18 +1698,23 @@ button.filter_btn {
 .movie_card_info {
   font-family: "Roboto", sans-serif;
   color: #fffaec;
-  text-transform: capitalize;
   line-height: 200%;
 }
 .movie_card_info h2 {
   font-size: 28px;
   margin-bottom: 30px;
+  text-transform: capitalize;
 }
 .movie_card_info h3 {
   font-size: 14px;
+  text-transform: capitalize;
+}
+.movie_card_info h4 {
+  font-size: 9.8px;
 }
 .movie_card_info p {
   font-size: 11.2px;
+  text-transform: capitalize;
 }
 
 .card-body {
@@ -1675,6 +1757,12 @@ button.rate_btn:hover {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #1a1a1a;
+}
+.rating_review input {
+  text-align: center;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .searchbar {

@@ -161,6 +161,16 @@ class MovieService {
             throw new Error(`Ratings not found for ${movieId}`);
         }
     }
+
+    async getRatingById(ratingId: Types.ObjectId | string): Promise<IRating | null> {
+        try {
+            const rating = await RatingModel.findById(ratingId);
+            console.log(rating);
+            return rating;
+        } catch (error) {
+            throw new Error(`Movie not found for ${ratingId}`);
+        }
+    }
 }
 
 export default new MovieService();

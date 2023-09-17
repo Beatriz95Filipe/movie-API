@@ -41,6 +41,6 @@ router.get("/ratings", MovieController.getAllRatings);
 router.get("/ratings/:movieId", MovieController.getRatingsById);
 
 //DELETE RATING
-router.delete("/ratings/:movieId", isAdmin, MovieController.deleteRating);
+router.delete("/ratings/:ratingId", isAdmin, MovieController.deleteRating);
 
 export default router;

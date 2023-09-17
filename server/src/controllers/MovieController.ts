@@ -276,7 +276,12 @@ class MovieController {
     //delete rating
     async deleteRating(req: Request, res: Response, next: NextFunction) {
         try {
-            const ratingId = req.params.id;
+            const ratingId = req.params.ratingId;
+
+            const ratingToDelete = await MovieService.getRatingById(ratingId);
+            if (!ratingToDelete) {
+                throw ApiError.NotFoundError("Rating not found");
+            }
 
             const deletedRating: IRating | null = await RatingModel.findByIdAndDelete(ratingId);
             if (!deletedRating) {
